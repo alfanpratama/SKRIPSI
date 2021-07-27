@@ -14,7 +14,7 @@ else if ($_GET['module'] == "divisi") {
 	include "module/data_divisi/divisi.php";	
 }
 else if ($_GET['module'] == "supplier") {
-	include "module/supplier/supplier.php";	
+	include "module/data_supplier/supplier.php";	
 }
 else if ($_GET['module'] == "barang") {
 	include "module/barang/barang.php";	
@@ -25,11 +25,11 @@ else if ($_GET['module'] == "kategori") {
 else if ($_GET['module'] == "user") {
 	include "module/user/user.php";	
 }
-else if ($_GET['module'] == "pesanan") {
-	include "module/pesanan/pesanan.php";	
+else if ($_GET['module'] == "brg_masuk") {
+	include "module/barang_masuk/barang_masuk.php";	
 }
-else if ($_GET['module'] == "harga") {
-	include "module/harga/harga.php";	
+else if ($_GET['module'] == "brg_keluar") {
+	include "module/barang_keluar/barang_keluar.php";	
 }
 else if ($_GET['module'] == "edit_user") {
 	include "module/user/edit_user.php";	

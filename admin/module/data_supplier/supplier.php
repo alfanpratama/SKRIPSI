@@ -1,5 +1,5 @@
 <?php
-$aksi="module/supplier/supplier_aksi.php";
+$aksi="module/data_supplier/supplier_aksi.php";
 
 
 switch($_GET[aksi]){

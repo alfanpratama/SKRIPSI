@@ -189,8 +189,8 @@ if($_SESSION['level']!="admin" ){
             <li><a href='?module=divisi' ><i class="fa fa-user "></i><span>Data Divisi</span></a></li>
             <li><a href='?module=barang' ><i class="fa fa-tasks "></i><span>Data Barang</span></a></li>
             <li><a href='?module=kategori' ><i class="glyphicon glyphicon-compressed"></i><span>Kategori Barang</span></a></li>
-            <li><a href='?module=kategori' ><i class="glyphicon glyphicon-circle-arrow-down"></i><span>Barang Masuk</span></a></li>
-            <li><a href='?module=kategori' ><i class="glyphicon glyphicon-circle-arrow-up"></i><span>Barang Keluar</span></a></li>
+            <li><a href='?module=brg_masuk' ><i class="glyphicon glyphicon-circle-arrow-down"></i><span>Barang Masuk</span></a></li>
+            <li><a href='?module=brg_keluar' ><i class="glyphicon glyphicon-circle-arrow-up"></i><span>Barang Keluar</span></a></li>
             <li><a href='?module=stok' ><i class="fa fa-cubes"></i><span>Stok Barang</span></a></li>
           </ul>
         </li>	

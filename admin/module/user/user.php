@@ -1,5 +1,6 @@
 <?php
 $aksi="module/user/user_aksi.php";
+$edit="module/user/edit_user.php";
 include "../koneksi.php";
 
 switch($_GET[aksi]){
@@ -61,7 +62,7 @@ switch($_GET[aksi]){
              <?php } ?>
            </td>
            <td align="center"><a class="btn btn-xs btn-info" href="?module=user&aksi=edit&id_user=<?php echo $tampilkan['id_user'];?>" alt="Edit Data"><i class="glyphicon glyphicon-pencil"></i></a>
-           <!--  <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=user&aksi=hapus&id_user=<?php echo $tampilkan['id_user'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?> ?')"> <i class="glyphicon glyphicon-trash"></i></a> -->
+           <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=user&aksi=hapus&id_user=<?php echo $tampilkan['id_user'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?> ?')"> <i class="glyphicon glyphicon-trash"></i></a>
           </td>
           <?php
         }
