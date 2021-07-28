@@ -6,7 +6,7 @@ switch($_GET[aksi]){
 default:
 ?>
 <!----- ------------------------- MENAMPILKAN DATA MASTER supplier ------------------------- ----->			
-<h3 class="box-title margin text-center">Data Master supplier</h3>
+<h3 class="box-title margin text-center">Data supplier</h3>
 <center> <div class="batas"> </div></center>
 <hr/>
 	<div class="box box-solid box-info">
@@ -53,7 +53,7 @@ $Kode = $tampilkan['id_supplier'];
 
 	<td align="center">
 	<a class="btn btn-xs btn-info" href="?module=supplier&aksi=edit&id_supplier=<?php echo $tampilkan['id_supplier'];?>" alt="Edit Data"><i class="glyphicon glyphicon-pencil"></i></a>
-	<!-- <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=supplier&aksi=hapus&id_supplier=<?php echo $tampilkan['id_supplier'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a> -->
+	<a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=supplier&aksi=hapus&id_supplier=<?php echo $tampilkan['id_supplier'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
 	</td>
 	
 	<?php

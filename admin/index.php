@@ -201,9 +201,12 @@ if($_SESSION['level']!="admin" ){
             <i class="glyphicon glyphicon-dashboard "></i> <span>Pengajuan</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href='?module=buat_pengajuan' ><i class="glyphicon glyphicon-pencil"></i><span>Buat Pengajuan Pengadaan</span></a></li>
+            <li><a href='?module=buat_pengajuan' ><i class="glyphicon glyphicon-pencil"></i><span>Buat Pengajuan</span></a></li>
+            <li><a href='?module=buat_pengadaan' ><i class="glyphicon glyphicon-pencil"></i><span>Buat Pengajuan Pengadaan</span></a></li>
             <li><a href='?module=mengelola_pengajuan' ><i class="fa fa-shopping-cart  "></i><span>Mengelola Pengajuan</span></a></li>
+            <li><a href='?module=mengelola_pengadaan' ><i class="fa fa-shopping-cart  "></i><span>Mengelola Pengajuan Pengadaan</span></a></li>
             <li><a href='?module=status_pengajuan' ><i class="fa   fa-check-circle "></i><span>Cek Status Pengajuan</span></a></li>
+            <li><a href='?module=status_pengadaan' ><i class="fa   fa-check-circle "></i><span>Cek Status Pengajuan Pengadaan</span></a></li>
           </ul>
         </li> 		
         <li class="treeview">
@@ -211,8 +214,8 @@ if($_SESSION['level']!="admin" ){
             <i class="fa fa-copy (alias) "></i> <span>Laporan</span> <i class="fa fa-angle-left pull-right"></i>
           </a>
           <ul class="treeview-menu">
-            <li><a href='?module=laporan&aksi=data_penawaran' ><i class="fa fa-file-text "></i><span>Laporan Pengadaan barang</span></a></li>
-           
+            <li><a href='?module=laporan&aksi=data_penawaran' ><i class="fa fa-file-text "></i><span>Laporan Pengajuan</span></a></li>
+            <li><a href='?module=laporan&aksi=data_penawaran' ><i class="fa fa-file-text "></i><span>Laporan Pengajuan Pengadaan</span></a></li>
             <li><a href='?module=laporan2&aksi=daftar_pendapatan' ><i class="fa fa-file-text "></i><span>Laporan Stok Barang</span></a>
             </li>
             <li><a href='?module=laporan2&aksi=daftar_pendapatan' ><i class="fa fa-file-text"></i><span>Laporan Barang Masuk</span></a></li>
