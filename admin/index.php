@@ -55,7 +55,11 @@ if($_SESSION['level']!="admin" ){
      folder instead of downloading all of them to greenuce the load. -->
      <link href="../aset/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />	  	
      <!--link untuk memunculkan otomatis-->
+     <!-- Select2 -->
+     <link rel="stylesheet" href="../aset/plugins/select2/select2.min.css">
+     <link rel="stylesheet" href="../aset/plugins/select2/select2-bootstrap4.min.css">
      
+
      <script src="../aset/plugins/jQuery/jQuery-2.1.4.min.js"></script>
      <!-- Bootstrap 3.3.2 JS -->
      <script src="../aset/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -85,6 +89,7 @@ if($_SESSION['level']!="admin" ){
      <script src="../aset/dist/js/demo.js" type="text/javascript"></script>
      <script src="../aset/plugins/morris/morris.min.js" type="text/javascript"></script>
      <script type="text/javascript" src="lib/my.js"></script>
+     <script src="../aset/plugins/select2/select2.full.min.js"></script>
 
 	<!-- <script src="module/js/jquery-1.9.1.min.js"></script>
     <script src="module/js/highcharts.js"></script>
@@ -234,26 +239,26 @@ if($_SESSION['level']!="admin" ){
   <div style="background:url(../aset/dist/img/bg.jpg); background-size:cover;" class="content-wrapper">
     <!-- Content Header (Page header) -->
     <center>
-    <section  class="content-header">
+      <section  class="content-header">
        <img src="../aset/dist/css/logomardira.jpeg">  <h1 small>Sistem Informasi Pengadaan Barang</h1 small>
-       </br>
-        <h4 small>STMIK Mardira Indonesia</h4 small>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="glyphicon glyphicon-time"></i><?php echo Indonesia2Tgl(date('Y-m-d'));?> </a></li>
-      </ol>
-    </section>
-    </center>
-    <!-- Main content -->
-    <section  class="content">
-     <!-- diini lah kita kasih artikel nya --> 
-     <div class="box box-info">
-     </div>
-     <?php include "isi.php";?>        		
+     </br>
+     <h4 small>STMIK Mardira Indonesia</h4 small>
+     <ol class="breadcrumb">
+      <li><a href="#"><i class="glyphicon glyphicon-time"></i><?php echo Indonesia2Tgl(date('Y-m-d'));?> </a></li>
+    </ol>
+  </section>
+</center>
+<!-- Main content -->
+<section  class="content">
+ <!-- diini lah kita kasih artikel nya --> 
+ <div class="box box-info">
+ </div>
+ <?php include "isi.php";?>        		
 
-   </section><!-- /.content -->
- </div><!-- /.content-wrapper -->
+</section><!-- /.content -->
+</div><!-- /.content-wrapper -->
 
- <footer class="main-footer">
+<footer class="main-footer">
   <div class="pull-right hidden-xs">
     Sistem Informasi Pengadaan Barang STMIK Mardira Indonesia <b>Version</b> 1.0
   </div>
@@ -334,5 +339,15 @@ if($_SESSION['level']!="admin" ){
         });
       });
     </script>
-  </body>
-  </html>
+    <script type="text/javascript">
+
+    //Initialize Select2 Elements
+    $('.select2').select2();
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    });
+  </script>
+</body>
+</html>

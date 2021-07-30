@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 $().ready(function() {
-	$("#barang").autocomplete("get_list.php", {
+	$("#barang").autocomplete("../autocomlete/get_list.php", {
 		width: 260,
 		matchContains: true,
 		selectFirst: false
@@ -24,8 +24,9 @@ $().ready(function() {
 });
 </script>
 <?php
-include "pengaturan/fungsi_alert.php";
-$aksi="module/barang_masuk/aksi_masuk.php";
+include '../koneksi.php';
+include 'pengaturan/fungsi_alert.php';
+$aksi='module/barang_masuk/masuk_aksi.php';
 
   
 ?>
@@ -53,7 +54,15 @@ if(isset($_GET['pesan'])){
 				<th width="600">
     				<label class="col-sm-2 control-label">ID barang </label>
     				<div class="col-sm-6">
-      					<input type="text" class="form-control" name="id_barang" id="id_barang" placeholder="masukan nama/kode barang">&nbsp;
+      					
+      					<select name="barang" class="form-control select2" required="yes">
+							<option value=" ">  </option>
+							<?php $q = mysql_query ("SELECT * FROM barang");
+								while ($k = mysql_fetch_array($q)){ ?>
+							<option value="<?php echo $k['id_barang']; ?>" 
+							<?php (@$h['id_barang']==$k['id_barang'])?print(" "):print(""); ?>  > <?php  echo $k['nama_brg']; ?>
+							</option> <?php } ?>
+						</select>
     				</div>
 				</th>
 				<th width="300">	
@@ -95,12 +104,11 @@ if(isset($_GET['pesan'])){
        echo "
              
 			 <td align=center>$r[jumlah]</td>";
-		
-		echo"
-		<td align=center>
-	               <a class='btn btn-danger btn-sm' href=\"JavaScript: confirmIt('Anda yakin akan menghapusnya ?','$aksi?module=barang_masuk&act=hapus&id=$r[id]','','','','u','n','Self','Self')\" onMouseOver=\"self.status=''; return true\" onMouseOut=\"self.status=''; return true\">hapus</a>
-				   
-             </td></tr>";
+			?> 
+			 <td align=center>
+	               <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=barang_masuk&aksi=hapus&id_barang=<?php echo $tampilkan['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
+             </td></tr>
+    <?php
       $no++;
 	  $counter++;
     }
@@ -140,13 +148,13 @@ echo "	<tr>
 <br>
 <left>
 		  <div class="form-group">
-		  	<label class="col-sm-4 control-label">No Barang Masuk</label>
+		  	<label class="col-sm-4 control-label">No Barang masuk</label>
 		  	<div class="col-sm-3">
 		  		<input type=text class="form-control" name="id_brg_masuk" id="id_brg_masuk" value="<?php echo $idpr; ?>" readonly="yes">
 		  	</div>
 		  </div>
 		  <div class="form-group">
-          	<label class="col-sm-4 control-label">Tanggal Barang Masuk</label>   
+          	<label class="col-sm-4 control-label">Tanggal Barang masuk</label>   
           	<div class="col-sm-5">
           	<input type=text class="form-control" id="tgl_masuk" name="tgl_masuk" value="<?php echo $tgl; ?>" readonly="yes">
           	</div>
@@ -154,16 +162,17 @@ echo "	<tr>
           <div class="form-group">
     		<label class="col-sm-4 control-label">Supplier</label>
     		<div class="col-sm-5">  
-      			<select name="id_supplier" class="form-control">
-      				<option value=" "> -- Pilih Supplier -- </option>
+      			<select name="id_user" class="form-control select2" required="yes">
+      				<option value=" "></option>
       				<?php $q = mysql_query ("SELECT * FROM supplier");
         			while ($k = mysql_fetch_array($q)){ ?>
-        			<option value="<?php echo $k['nama_sup']; ?>" 
+        			<option value="<?php echo $k['id_supplier']; ?>" 
           				<?php (@$h['id_supplier']==$k['id_supplier'])?print(" "):print(""); ?>  > <?php  echo $k['nama_sup']; ?>
         			</option> <?php } ?>
       			</select>
     		</div>
   		  </div>
+
   		  <div class="form-group">
     		<label class="col-sm-4"></label>
     		<div class="col-sm-5">
@@ -191,7 +200,8 @@ echo "	<tr>
 							VALUES(
 								'$brg',
 								'$_POST[qty]')");
-				echo "<meta http-equiv='refresh' content='0; url=?module=barang_masuk'>";
+				echo "<meta http-equiv='refresh' content='0; url=?module=brg_masuk'>";
+
 			}
 			}
 
@@ -214,24 +224,25 @@ echo "	<tr>
 					mysql_query("INSERT INTO detail_brg_masuk(
 								  id_brg_masuk,
 								  id_barang,
+								  id_supplier,
 								  jml_brg) 
 							VALUES(
 								'$_POST[id_brg_masuk]',
 								'$rs[id_barang]',
 								'$rs[jumlah]')");
-					$sql2=mysql_query("SELECT * FROM stok where kode_brg='$rs[id_barang]'");
+					$sql2=mysql_query("SELECT * FROM stok where id_barang='$rs[id_barang]'");
 					$rs2=mysql_fetch_array($sql2);
 					$sisastok = $rs2[stok] + $rs[jumlah];
 					mysql_query("update stok set
 								  stok=$sisastok where
-								  kode_brg='$rs[id_barang]'");
+								  id_barang='$rs[id_barang]'");
 				}
 				
 				
 				mysql_query("truncate table tmp");
 				
-				echo "<meta http-equiv='refresh' content='0; url=?module=barang_masuk'>";
-				header('location:main.php?module=barang_masuk&pesan=Data barang masuk berhasil disimpan ! ');
+				echo "<meta http-equiv='refresh' content='0; url=?module=brg_masuk'>";
+				header('location:main.php?module=brg_masuk&pesan=Data barang masuk berhasil disimpan ! ');
 				
 				}
 				else{
