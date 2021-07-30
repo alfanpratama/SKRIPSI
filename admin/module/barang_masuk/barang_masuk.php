@@ -26,7 +26,7 @@ $().ready(function() {
 <?php
 include '../koneksi.php';
 include 'pengaturan/fungsi_alert.php';
-$aksi='module/barang_masuk/masuk_aksi.php';
+$aksi='module/barang_masuk/aksi_masuk.php';
 
   
 ?>
@@ -55,7 +55,7 @@ if(isset($_GET['pesan'])){
     				<label class="col-sm-2 control-label">ID barang </label>
     				<div class="col-sm-6">
       					
-      					<select name="barang" class="form-control select2" required="yes">
+      					<select name="barang" class="form-control select2">
 							<option value=" ">  </option>
 							<?php $q = mysql_query ("SELECT * FROM barang");
 								while ($k = mysql_fetch_array($q)){ ?>
@@ -68,7 +68,7 @@ if(isset($_GET['pesan'])){
 				<th width="300">	
 					<label class="col-sm-3 control-label">Jumlah </label>
 					<div class="col-sm-4">
-						<input type="text" class="form-control" name="qty" id="qty" onkeypress="return isNumberKey(event)">&nbsp;
+						<input type="text"   class="form-control" name="qty" id="qty" onkeypress="return isNumberKey(event)">&nbsp;
 					</div>
 				</th>
 				<th>
@@ -106,7 +106,7 @@ if(isset($_GET['pesan'])){
 			 <td align=center>$r[jumlah]</td>";
 			?> 
 			 <td align=center>
-	               <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=barang_masuk&aksi=hapus&id_barang=<?php echo $tampilkan['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
+	               <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=brg_masuk&aksi=hapus&id_barang=<?php echo $r['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r[id_barang]; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
              </td></tr>
     <?php
       $no++;
@@ -162,7 +162,7 @@ echo "	<tr>
           <div class="form-group">
     		<label class="col-sm-4 control-label">Supplier</label>
     		<div class="col-sm-5">  
-      			<select name="id_user" class="form-control select2" required="yes">
+      			<select name="id_supplier" class="form-control select2" >
       				<option value=" "></option>
       				<?php $q = mysql_query ("SELECT * FROM supplier");
         			while ($k = mysql_fetch_array($q)){ ?>
@@ -187,9 +187,9 @@ echo "	<tr>
 		if($_POST) {
 			if(isset($_POST['btnTambah'])){
 			if(trim($_POST[barang])==""){
-				header('location:main.php?module=barang_masuk&pesan=Isi dulu Barang !');
+				header('location:main.php?module=brg_masuk&pesan=Isi dulu Barang !');
 			}else if(trim($_POST[qty])==""){
-				header('location:main.php?module=barang_masuk&pesan=Isi dulu Jumlah Barang !');
+				header('location:main.php?module=brg_masuk&pesan=Isi dulu Jumlah Barang !');
 			}else{
 			$brg=substr($_POST[barang],0,7);
 			$sqlcek1=mysql_query("SELECT * FROM barang where id_barang='$brg'");
@@ -224,7 +224,6 @@ echo "	<tr>
 					mysql_query("INSERT INTO detail_brg_masuk(
 								  id_brg_masuk,
 								  id_barang,
-								  id_supplier,
 								  jml_brg) 
 							VALUES(
 								'$_POST[id_brg_masuk]',
@@ -246,7 +245,7 @@ echo "	<tr>
 				
 				}
 				else{
-					header('location:main.php?module=barang_masuk&pesan=Data Kosong !');
+					header('location:main.php?module=brg_masuk&pesan=Data Kosong !');
 				}
 			}
 		} 

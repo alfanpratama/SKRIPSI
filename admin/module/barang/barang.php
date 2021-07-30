@@ -28,7 +28,6 @@ default:
     <th class="col-sm-1">Harga Barang</th> 
     <th class="col-sm-1">Satuan</th> 
     <th class="col-sm-3">Spesifikasi</th>
-    <th class="col-sm-1">Supplier</th>
     <th class="col-sm-1">Aksi</th>
   </tr>
 </thead>
@@ -36,7 +35,7 @@ default:
 <tbody>
 <?php 
 // Tampilkan data dari Database
-$sql = "SELECT * FROM barang";
+$sql = "SELECT * FROM barang ";
 $tampil = mysql_query($sql);
 $no=1;
 while ($tampilkan = mysql_fetch_array($tampil)) { 
@@ -51,7 +50,6 @@ $Kode = $tampilkan['id_barang'];
   <td><?php echo $tampilkan['harga']; ?></td>
   <td><?php echo $tampilkan['satuan']; ?></td>
   <td><?php echo $tampilkan['spesifikasi']; ?></td>
-  <td><?php echo $tampilkan['nama_sup']; ?></td>
 
   <td align="center">
   <a class="btn btn-xs btn-info" href="?module=barang&aksi=edit&id_barang=<?php echo $tampilkan['id_barang'];?>" alt="Edit Data"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -106,7 +104,7 @@ $sql ="SELECT max(id_barang) as terakhir from barang";
       <option value=" "> -- Pilih Kategori Produk -- </option>
       <?php $q = mysql_query ("SELECT * FROM kategori_barang");
         while ($k = mysql_fetch_array($q)){ ?>
-        <option value="<?php echo $k['nama_kategori']; ?>" 
+        <option value="<?php echo $k['id_kategori']; ?>" 
           <?php (@$h['id_kategori']==$k['id_kategori'])?print(" "):print(""); ?>  > <?php  echo $k['nama_kategori']; ?>
         </option> <?php } ?>
       </select>
@@ -130,19 +128,6 @@ $sql ="SELECT max(id_barang) as terakhir from barang";
       <input type="text" class="form-control" required="required" name="spesifikasi" placeholder="Spesifikasi Barang">
     </div>
   </div>  
-  <div class="form-group">
-  <label class="col-sm-4 control-label">Supplier</label>
-    <div class="col-sm-5">  
-      <select name="id_supplier" class="form-control">
-        <option value=" "> -- Pilih Supplier Produk -- </option>
-        <?php $q = mysql_query ("SELECT * FROM supplier");
-        while ($k = mysql_fetch_array($q)){ ?>
-           <option value="<?php echo $k['nama_sup']; ?>" 
-           <?php (@$h['id_supplier']==$k['id_supplier'])?print(" "):print(""); ?>  > <?php  echo $k['nama_sup']; ?>
-           </option> <?php } ?>
-        </select>
-      </div>
-  </div>
 
   <div class="form-group">
     <label class="col-sm-4 control-label">  </label>
@@ -182,7 +167,7 @@ $edit=mysql_fetch_array($data);
         <select name="id_kategori" class="form-control">
           <?php $q = mysql_query ("select * from kategori_barang");
            while ($k = mysql_fetch_array($q)){ ?>
-          <option value="<?php echo $k['nama_kategori']; ?>" 
+          <option value="<?php echo $k['id_kategori']; ?>" 
           <?php (@$h['id_kategori']==$k['id_kategori'])?print(" "):print(""); ?>  > <?php  echo $k['nama_kategori']; ?>
           </option> <?php } ?>
         </select>
@@ -206,19 +191,6 @@ $edit=mysql_fetch_array($data);
       <input type="text" class="form-control" required="required" name="spesifikasi" placeholder="Spesifikasi Barang" value="<?php echo $edit['spesifikasi']; ?>">
     </div>
   </div>  
-  <div class="form-group">
-    <label class="col-sm-4 control-label">Supplier</label>
-    <div class="col-sm-5">  
-      <select name="id_supplier" class="form-control">
-        <option value=" "> -- Pilih Supplier Produk -- </option>
-        <?php $q = mysql_query ("select * from supplier");
-        while ($k = mysql_fetch_array($q)){ ?>
-        <option value="<?php echo $k['nama_sup']; ?>" 
-        <?php (@$h['id_supplier']==$k['id_supplier'])?print(" "):print(""); ?>  > <?php  echo $k['nama_sup']; ?>
-        </option> <?php } ?>
-      </select>
-    </div>
-  </div>
 
 <div class="form-group">
     <label class="col-sm-4"></label>
