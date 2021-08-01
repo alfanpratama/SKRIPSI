@@ -36,7 +36,19 @@ if(isset($_GET['pesan'])){
 	// $pesan = $_GET['pesan'];
 	// var_dump($pesan);end;
 	echo "
-	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-danger alert-dismissable\">
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-warning alert-dismissable\">
+	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+	<p><i class=\"icon fa fa-info\"></i>
+	<strong>".$_GET['pesan']."</strong>
+	</p>
+	</div> ";
+}
+if(isset($_GET['pesan2'])){
+	// echo "<script> alert('Stok Kurang')</script>";
+	// $pesan = $_GET['pesan'];
+	// var_dump($pesan);end;
+	echo "
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-success alert-dismissable\">
 	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
 	<p><i class=\"icon fa fa-info\"></i>
 	<strong>".$_GET['pesan']."</strong>
@@ -205,23 +217,32 @@ if(isset($_GET['pesan'])){
 
 												if(isset($_POST['btnTambah'])){
 													
-														$brg=substr($_POST[barang],0,7);
-														$sqlcek1=mysql_query("SELECT * FROM stok where id_barang='$brg'");
-														$rscek1=mysql_fetch_array($sqlcek1);
+													$brg=substr($_POST[barang],0,7);
+													$sqlcek1=mysql_query("SELECT * FROM stok where id_barang='$brg'");
+													$rscek1=mysql_fetch_array($sqlcek1);
 
-														if($_POST[qty] > $rscek1[stok]){
-															// header('location:main.php?module=brg_keluar&pesan=Stok Barang ('.$_POST[barang].') Kurang !');
-															 echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Stok Barang ($_POST[barang]) Kurang !'>";
-														}else{
-															mysql_query("INSERT INTO tmp(
-																id_barang,
-																jumlah) 
-																VALUES(
-																'$brg',
-																'$_POST[qty]')");
-															echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar'>";
-														}
+													if(trim($_POST[barang])==""){
+				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Barang !');
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Isi dulu Barang !'>";
+													}else if(trim($_POST[qty])==""){
+				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Jumlah Barang !');
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Isi dulu Jumlah Barang !'>";
 													}
+													else if($_POST[qty] > $rscek1[stok]){
+															// header('location:main.php?module=brg_keluar&pesan=Stok Barang ('.$_POST[barang].') Kurang !');
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Stok Barang ($_POST[barang]) Kurang !'>";
+													}else{
+														mysql_query("INSERT INTO tmp(
+															no_surat,
+															id_barang,
+															jumlah) 
+															VALUES(
+															'$_POST[id_brg_keluar]',
+															'$brg',
+															'$_POST[qty]')");
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar'>";
+													}
+												}
 												
 
 
@@ -229,7 +250,7 @@ if(isset($_GET['pesan'])){
 													$sqlcek=mysql_query("SELECT * FROM tmp");
 													$rscek=mysql_num_rows($sqlcek);
 													if($rscek > 0){
-														mysql_query("INSERT INTO brg_keluar(
+														mysql_query("INSERT INTO brg_keluar where id_brg_keluar='$_POST[id_brg_keluar]' (
 															id_brg_keluar,
 															tgl_keluar,
 															id_user,
@@ -243,7 +264,7 @@ if(isset($_GET['pesan'])){
 															'$_POST[jml]')");
 														$sql=mysql_query("SELECT * FROM tmp");
 														while($rs=mysql_fetch_array($sql)){
-															mysql_query("INSERT INTO detail_brg_keluar(
+															mysql_query("INSERT INTO detail_brg_keluar where id_brg_keluar='$_POST[id_brg_keluar]'(
 																id_brg_keluar,
 																id_barang,
 																jml_brg) 
@@ -262,7 +283,7 @@ if(isset($_GET['pesan'])){
 
 														mysql_query("truncate table tmp");
 
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Data barang keluar berhasil disimpan !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan2=Data barang keluar berhasil disimpan !'>";
 														// header('location:main.php?module=brg_keluar&pesan=Data barang keluar berhasil disimpan ! ');
 
 													}
