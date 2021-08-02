@@ -19,7 +19,7 @@ $aksi=$_GET['aksi'];
 
 
 // HAPUS
-if($module=='brg_masuk' AND $aksi=='hapus' ){ 
+if($module=='brg_keluar' AND $aksi=='hapus' ){ 
   $mySql = "DELETE FROM tmp WHERE id_barang='".$_GET['id_barang']."'";
   $myQry = mysql_query($mySql);
   //header('location:../../index.php?module='.$module);

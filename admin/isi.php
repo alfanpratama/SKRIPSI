@@ -37,8 +37,8 @@ else if ($_GET['module'] == "edit_user") {
 else if ($_GET['module'] == "cek_penawaran") {
 	include "module/cek_penawaran/cek_penawaran.php";	
 }	
-else if ($_GET['module'] == "slo") {
-	include "module/slo/cek_slo.php";	
+else if ($_GET['module'] == "buat_pengadaan") {
+	include "module/buat_pengadaan/buat_pengadaan.php";	
 }
 else if ($_GET['module'] == "edit_divisi") {
 	include "module/data_divisi/edit_divisi.php";	

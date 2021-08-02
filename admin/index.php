@@ -240,7 +240,7 @@ if($_SESSION['level']!="admin" ){
     <!-- Content Header (Page header) -->
     <center>
       <section  class="content-header">
-       <img src="../aset/dist/css/logomardira.jpeg">  <h1 small>Sistem Informasi Pengadaan Barang</h1 small>
+       <img src="../aset/dist/css/logomardira.png">  <h1 small>Sistem Informasi Pengadaan Barang</h1 small>
      </br>
      <h4 small>STMIK Mardira Indonesia</h4 small>
      <ol class="breadcrumb">

@@ -14,11 +14,11 @@ $nama_sup = $_POST['nama_sup'];
 
 // HAPUS
 if($module=='barang' AND $aksi=='hapus' ){ 
-$mySql = "DELETE FROM barang WHERE id_barang='".$_GET['id_barang']."'";
-$myQry = mysql_query($mySql);
-echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
-echo "<script> alert('Data Berhasil Di Hapus')</script>";
-//header('location:../../index.php?module='.$module);
+  $mySql = "DELETE FROM tmp WHERE id_barang='".$_GET['id_barang']."'";
+  $myQry = mysql_query($mySql);
+  //header('location:../../index.php?module='.$module);
+  echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
+  echo "<script> alert('Data Berhasil Di Hapus')</script>";
 }
 
 //Tambah

@@ -25,7 +25,7 @@ $().ready(function() {
 </script>
 
 <?php
-$aksi='module/buat_pengajuan/aksi_pengajuan.php';
+$aksi='module/buat_pengadaan/aksi_pengadaan.php';
 include '../koneksi.php';
 include '../inc/cek_session.php';
 
@@ -40,10 +40,10 @@ if($_SESSION['level']!="kepala_divisi" )
 			$bulan	= date('n');
 			$romawi	= getRomawi($bulan);
 			$tahun 	= date ('Y');
-			$nomor 	= ".SPn/".$inisial."/".$tanggal."/".$romawi."/".$tahun;
+			$nomor 	= ".SPPn/".$inisial."/".$tanggal."/".$romawi."/".$tahun;
 
 		// membaca kode / nilai tertinggi dari penomoran yang ada didatabase berdasarkan tanggal
-			$query = "SELECT (left( no_surat, 3 )) AS maxKode FROM pengajuan_brg ORDER BY left( no_surat_pengajuan, 3 ) desc";
+			$query = "SELECT (left( no_surat, 3 )) AS maxKode FROM pengadaan_brg ORDER BY left( no_surat_pengadaan, 3 ) desc";
 			$hasil = mysql_query($query);
 			$data  = mysql_fetch_array($hasil);
 			$no= $data['maxKode'];
@@ -60,7 +60,7 @@ if($_SESSION['level']!="kepala_divisi" )
 
 <div class="box box-solid box-info">
 	<div class="box-header">
-		<h3 class="btn btn enable box-title"> Form Pengajuan Barang</h3>
+		<h3 class="btn btn enable box-title"> Form Pengadaan Barang</h3>
 	</div>
 		<div class="box-body table-responsive">
 <?php
@@ -76,16 +76,16 @@ if(isset($_GET['pesan'])){
 	}
 ?>
 		<br>
-        <form class="form-horizontal" method="POST" action="?module=aksi_pengajuan" name="text_form">
+        <form class="form-horizontal" method="POST" action="?module=aksi_pengadaan" name="text_form">
         	<left>
 		  <div class="form-group">
-		  	<label class="col-sm-2 control-label">No Surat Pengajuan</label>
+		  	<label class="col-sm-2 control-label">No Surat Pengadaan</label>
 		  	<div class="col-sm-3">
-		  		<input type=text class="form-control" name="no_surat_pengajuan" id="no_surat_pengajuan" value="<?php echo $nomorbaru; ?>" readonly="yes">
+		  		<input type=text class="form-control" name="no_surat_pengadaan" id="no_surat_pengadaan" value="<?php echo $nomorbaru; ?>" readonly="yes">
 		  	</div>
 		  </div>
 		  <div class="form-group">
-          	<label class="col-sm-2 control-label">Tanggal Penhgajuan Barang</label>   
+          	<label class="col-sm-2 control-label">Tanggal Pengajuan Barang</label>   
           	<div class="col-sm-5">
           		<input type=text class="form-control" id="tgl" name="tgl" value="<?php echo $tgl; ?>" readonly="yes">
           	</div>
@@ -98,15 +98,9 @@ if(isset($_GET['pesan'])){
     		</div>
   		  </div>
   		  <div class="form-group">
-    		<label class="col-sm-2 control-label">Divisi</label>
-    		<div class="col-sm-5">
-          	<input type=text class="form-control" id="id_divisi" name="id_divisi" value="<?php echo $_SESSION['id_divisi']; ?>" readonly="yes">
-          	</div>
-  		  </div>
-  		  <div class="form-group">
     		<label class="col-sm-2 control-label">Perihal</label>
     		<div class="col-sm-9">
-          	<TEXTAREA type=text class="form-control" id="perihal" name="perihal" placeholder="Perihal Pengajuan Barang"></TEXTAREA>
+          	<TEXTAREA type=text class="form-control" id="perihal" name="perihal" placeholder="Perihal Pengadaan Barang"></TEXTAREA>
           	</div>
   		  </div>
 		 </left>
@@ -171,7 +165,7 @@ if(isset($_GET['pesan'])){
 			 <td align=center>$r[jumlah]</td>";
      ?>
      <td align=center>
-     <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=aksi_pengajuan&aksi=hapus&id=<?php echo $r['id'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r['id']; ?>?')"> <i class="glyphicon glyphicon-trash"></i></a>
+     <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=aksi_pengadaan&aksi=hapus&id=<?php echo $r['id'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r['id']; ?>?')"> <i class="glyphicon glyphicon-trash"></i></a>
      </td></tr>
      <?php
       $no++;
@@ -197,9 +191,9 @@ echo "<tr>
 		if($_POST) {
 			if(isset($_POST['btnTambah'])){
 			if(trim($_POST[barang])==""){
-				header('location:main.php?module=aksi_pengajuan&pesan=Isi dulu Barang !');
+				header('location:main.php?module=aksi_pengadaan&pesan=Isi dulu Barang !');
 			}else if(trim($_POST[qty])==""){
-				header('location:main.php?module=aksi_pengajuan&pesan=Isi dulu Jumlah Barang !');
+				header('location:main.php?module=aksi_pengadaan&pesan=Isi dulu Jumlah Barang !');
 			}else{
 			$brg=substr($_POST[barang],0,7);
 			$sqlcek1=mysql_query("SELECT * FROM barang where id_barang='$brg'");
@@ -210,15 +204,15 @@ echo "<tr>
 							VALUES(
 								'$brg',
 								'$_POST[qty]')");
-				echo "<meta http-equiv='refresh' content='0; url=?module=aksi_pengajuan'>";
+				echo "<meta http-equiv='refresh' content='0; url=?module=aksi_pengadaan'>";
 			}
 			}
 			if(isset($_POST['btnSimpan'])){
 			$sqlcek=mysql_query("SELECT * FROM tmp");
 			$rscek=mysql_num_rows($sqlcek);
 			if($rscek > 0){
-				mysql_query("INSERT INTO pengajuan_brg(
-								  no_surat_pengajuan,
+				mysql_query("INSERT INTO pengadaan_brg(
+								  no_surat_pengadaan,
 								  tgl,
 								  id_user,
 								  id_divisi,
@@ -226,7 +220,7 @@ echo "<tr>
 								  id_barang,
 								  jml_brg) 
 							VALUES(
-								'$_POST[no_surat_pengajuan]',
+								'$_POST[no_surat_pengadaan]',
 								'$_POST[tgl]',
 								'$_POST[id_user]',
 								'$_POST[id_divisi]',
@@ -236,12 +230,12 @@ echo "<tr>
 				
 				mysql_query("truncate table tmp");
 				
-				echo "<meta http-equiv='refresh' content='0; url=?module=pengajuan_brg'>";
-				header('location:main.php?module=pengajuan_brg&pesan=Data barang keluar berhasil disimpan ! ');
+				echo "<meta http-equiv='refresh' content='0; url=?module=pengadaan_brg'>";
+				header('location:main.php?module=pengadaan_brg&pesan=Data barang keluar berhasil disimpan ! ');
 				
 				}
 				else{
-					header('location:main.php?module=pengajuan_brg&pesan=Data Kosong !');
+					header('location:main.php?module=pengadaan_brg&pesan=Data Kosong !');
 				}
 			}
 		} 
