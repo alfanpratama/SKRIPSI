@@ -109,7 +109,11 @@ if(isset($_GET['pesan2'])){
 								$no=1;
 								$counter = 1;
 								while ($r=mysql_fetch_array($tampil)){
+<<<<<<< HEAD
 									echo "<td align=center>$no[no_surat]</td>
+=======
+									echo "<td align=center>$no</td>
+>>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 									<td align=center>$r[id_barang]</td>";
 
 									$sql=mysql_query("SELECT * FROM barang where id_barang='$r[id_barang]'");
@@ -169,6 +173,7 @@ if(isset($_GET['pesan2'])){
 										</div>
 									</div>
 									<div class="form-group">
+<<<<<<< HEAD
 										<label class="col-sm-4 control-label">No Surat Pengajuan Barang</label>
 										<div class="col-sm-5">  
 											<select name="id_user" class="form-control"  >
@@ -182,6 +187,8 @@ if(isset($_GET['pesan2'])){
 												</div>
 											</div>
 									<div class="form-group">
+=======
+>>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 										<label class="col-sm-4 control-label">Tanggal Barang Keluar</label>   
 										<div class="col-sm-5">
 											<input type=text class="form-control" id="tgl_keluar" name="tgl_keluar" value="<?php echo $tgl; ?>" readonly="yes">
@@ -265,14 +272,20 @@ if(isset($_GET['pesan2'])){
 													if($rscek > 0){
 														mysql_query("INSERT INTO brg_keluar where id_brg_keluar='$_POST[id_brg_keluar]' (
 															id_brg_keluar,
+<<<<<<< HEAD
 															no_surat_pengajuan,
+=======
+>>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 															tgl_keluar,
 															id_user,
 															id_divisi,
 															jml_brg) 
 															VALUES(
 															'$_POST[id_brg_keluar]',
+<<<<<<< HEAD
 															'$_POST[no_surat_pengajuan]',
+=======
+>>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 															'$_POST[tgl_keluar]',
 															'$_POST[id_user]',
 															'$_POST[id_divisi]',
