@@ -23,7 +23,7 @@ if($module=='brg_keluar' AND $aksi=='hapus' ){
   $mySql = "DELETE FROM tmp WHERE id_barang='".$_GET['id_barang']."'";
   $myQry = mysql_query($mySql);
   //header('location:../../index.php?module='.$module);
-  echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
+  echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=brg_keluar&aksi3=barang_keluar\">");
   echo "<script> alert('Data Berhasil Di Hapus')</script>";
 }
 ?>

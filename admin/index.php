@@ -21,7 +21,7 @@ if($_SESSION['level']!="admin" ){
   <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="../aset/dist/img/logomardira.jpeg">
+    <link rel="icon" href="../aset/dist/img/logomardira.png">
     <title>Sistem Informasi Pengajuan Barang</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 

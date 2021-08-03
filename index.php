@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="aset/dist/img/logomardira.jpeg">
+    <link rel="icon" href="aset/dist/img/logomardira.png">
     <title>SIPB STMIK Mardia Indonesia</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <!-- Bootstrap 3.3.4 -->
@@ -28,7 +28,7 @@
       </div><!-- /.login-logo -->
       <div class="login-box-body ">
         <marquee><h4 class="login-box-msg">Silahkan Masuk untuk akses sistem!</h4></marquee>
-    <div class="login-logo" ><img align="center" src="aset/dist/img/logomardira.jpeg"></div>
+    <div class="login-logo" ><img align="center" src="aset/dist/img/logomardira.png"></div>
         <form name="login-form" action="cek_login.php"  class="login-form" method="post">
           <div class="form-group has-feedback">
             <input type="text" name="username" class="form-control" placeholder="Username"/>

@@ -25,16 +25,15 @@ $().ready(function() {
 </script>
 
 <?php
-$aksi='module/buat_pengajuan/aksi_pengajuan.php';
 include '../koneksi.php';
 include '../inc/cek_session.php';
-
+$aksi='module/buat_pengajuan/buat_pengajuan.php';
 if($_SESSION['level']!="kepala_divisi" )
 //membuat inisial nama
 			$jml= mysql_num_rows(mysql_query('SELECT * FROM divisi'));
 			$kode_unik = $jml+1;
 			$inisial =strtoupper(substr($_SESSION['nama_divisi'],0,2));
-//membuat nomor otomatis
+
 			include "fungsi-romawi.php";
 			$tanggal= date ('d');
 			$bulan	= date('n');
@@ -43,7 +42,7 @@ if($_SESSION['level']!="kepala_divisi" )
 			$nomor 	= ".SPn/".$inisial."/".$tanggal."/".$romawi."/".$tahun;
 
 		// membaca kode / nilai tertinggi dari penomoran yang ada didatabase berdasarkan tanggal
-			$query = "SELECT (left( no_surat, 3 )) AS maxKode FROM pengajuan_brg ORDER BY left( no_surat_pengajuan, 3 ) desc";
+			$query = "SELECT (left( no_surat_pengajuan, 3 )) AS maxKode FROM pengajuan_brg ORDER BY left( no_surat_pengajuan, 3 ) desc";
 			$hasil = mysql_query($query);
 			$data  = mysql_fetch_array($hasil);
 			$no= $data['maxKode'];
@@ -65,18 +64,44 @@ if($_SESSION['level']!="kepala_divisi" )
 		<div class="box-body table-responsive">
 <?php
 if(isset($_GET['pesan'])){
-		echo "
-		
-		<div class=\"ui-widget\">
-			<div class=\"ui-state-highlight ui-corner-all\" style=\"margin-top: 20px; padding: 0 .7em;\">
-				<span class=\"ui-icon ui-icon-info\" style=\"float: left; margin-right: .3em;\"></span>
-				<strong>".$_GET['pesan']."</strong>
-			</div>
-		</div>";
-	}
+	// echo "<script> alert('Stok Kurang')</script>";
+	// $pesan = $_GET['pesan'];
+	// var_dump($pesan);end;
+	echo "
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-warning alert-dismissable\">
+	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+	<p><i class=\"icon fa fa-info\"></i>
+	<strong>".$_GET['pesan']."</strong>
+	</p>
+	</div> ";
+}
+if(isset($_GET['pesan2'])){
+	// echo "<script> alert('Stok Kurang')</script>";
+	// $pesan = $_GET['pesan'];
+	// var_dump($pesan);end;
+	echo "
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-success alert-dismissable\">
+	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+	<p><i class=\"icon fa fa-info\"></i>
+	<strong>".$_GET['pesan']."</strong>
+	</p>
+	</div> ";
+}
+if(isset($_GET['pesan3'])){
+	// echo "<script> alert('Stok Kurang')</script>";
+	// $pesan = $_GET['pesan'];
+	// var_dump($pesan);end;
+	echo "
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-success alert-dismissable\">
+	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+	<p><i class=\"icon fa fa-info\"></i>
+	<strong>".$_GET['pesan']."</strong>
+	</p>
+	</div> ";
+}
 ?>
 		<br>
-        <form class="form-horizontal" method="POST" action="?module=aksi_pengajuan" name="text_form">
+        <form class="form-horizontal" method="POST" action="?module=buat_pengajuan" name="text_form">
         	<left>
 		  <div class="form-group">
 		  	<label class="col-sm-2 control-label">No Surat Pengajuan</label>
@@ -110,7 +135,6 @@ if(isset($_GET['pesan'])){
           	</div>
   		  </div>
 		 </left>
-		</form>
 		<div class="box box-solid box-success">
 			<div class="box-header">
 			<h3 class="btn btn enable box-title">Input Data Barang</h3>
@@ -159,19 +183,16 @@ if(isset($_GET['pesan'])){
 		$no=1;
 		$counter = 1;
     	while ($r=mysql_fetch_array($tampil)){
-        echo "<tr bgcolor='".$warna."'>
-			 <td align=center>$no</td>
-			 <td align=center>$r[id_barang]</td>";
-			 
-				$sql=mysql_query("SELECT * FROM barang where id_barang_brg='$r[id_barang]'");
-				$rs=mysql_fetch_array($sql);
-				echo "<td>$rs[nama_brg]</td>";
-       echo "
-             
-			 <td align=center>$r[jumlah]</td>";
-     ?>
-     <td align=center>
-     <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=aksi_pengajuan&aksi=hapus&id=<?php echo $r['id'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r['id']; ?>?')"> <i class="glyphicon glyphicon-trash"></i></a>
+        echo "<td align=center>$no</td>
+			  <td align=center>$r[id_barang]</td>";
+
+		$sql=mysql_query("SELECT * FROM barang where id_barang='$r[id_barang]'");
+		$rs=mysql_fetch_array($sql);
+		echo "<td>$rs[nama_brg]</td>";
+		echo "<td align=center>$r[jumlah]</td>";
+		?> 
+		<td align=center>
+		<a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=buat_pengajuan&aksi=hapus&id_barang=<?php echo $r['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r[id_barang]; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
      </td></tr>
      <?php
       $no++;
@@ -194,55 +215,68 @@ echo "<tr>
 			</div>
 		  </div>
 		<?php
-		if($_POST) {
-			if(isset($_POST['btnTambah'])){
-			if(trim($_POST[barang])==""){
-				header('location:main.php?module=aksi_pengajuan&pesan=Isi dulu Barang !');
-			}else if(trim($_POST[qty])==""){
-				header('location:main.php?module=aksi_pengajuan&pesan=Isi dulu Jumlah Barang !');
-			}else{
+		if(isset($_POST['btnTambah'])){
+													
 			$brg=substr($_POST[barang],0,7);
-			$sqlcek1=mysql_query("SELECT * FROM barang where id_barang='$brg'");
+			$sqlcek1=mysql_query("SELECT * FROM stok where id_barang='$brg'");
 			$rscek1=mysql_fetch_array($sqlcek1);
-				mysql_query("INSERT INTO tmp(
-								  id_barang,
-								  jumlah) 
-							VALUES(
-								'$brg',
-								'$_POST[qty]')");
-				echo "<meta http-equiv='refresh' content='0; url=?module=aksi_pengajuan'>";
+
+				if(trim($_POST[barang])==""){
+				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Barang !');
+					echo "<meta http-equiv='refresh' content='0; url=?module=buat_pengajuan&pesan=Isi dulu Barang !'>";
+				}else if(trim($_POST[qty])==""){
+				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Jumlah Barang !');
+					echo "<meta http-equiv='refresh' content='0; url=?module=buat_pengajuan&pesan=Isi dulu Jumlah Barang !'>";
+				}else{
+			mysql_query("INSERT INTO tmp(
+										no_surat,
+										id_barang,
+										jumlah) 
+						VALUES(
+										'$_POST[no_surat_pengajuan]',
+										'$brg',
+										'$_POST[qty]')");		
+			echo "<meta http-equiv='refresh' content='0; url=?module=buat_pengajuan'>";	
 			}
-			}
+		}
 			if(isset($_POST['btnSimpan'])){
-			$sqlcek=mysql_query("SELECT * FROM tmp");
-			$rscek=mysql_num_rows($sqlcek);
-			if($rscek > 0){
-				mysql_query("INSERT INTO pengajuan_brg(
-								  no_surat_pengajuan,
-								  tgl,
-								  id_user,
-								  id_divisi,
-								  perihal,
-								  id_barang,
-								  jml_brg) 
-							VALUES(
+				$sqlcek=mysql_query("SELECT * FROM tmp");
+				$rscek=mysql_num_rows($sqlcek);
+				if($rscek > 0){
+					mysql_query("INSERT INTO pengajuan_brg where no_surat_pengajuan='$_POST[no_surat_pengajuan]' (
+								no_surat_pengajuan,
+								id_user,
+								tgl,
+								id_divisi,
+								perihal,
+								jml_brg) 
+								VALUES(
 								'$_POST[no_surat_pengajuan]',
-								'$_POST[tgl]',
 								'$_POST[id_user]',
+								'$_POST[tgl]',
 								'$_POST[id_divisi]',
 								'$_POST[perihal]',
-								'$_POST[id_barang]',
 								'$_POST[jml]')");
+				$sql=mysql_query("SELECT * FROM tmp");
+				while($rs=mysql_fetch_array($sql)){
+				mysql_query("INSERT INTO detail_pengajuan where no_surat_pengajuan='$_POST[no_surat_pengajuan]'(
+								no_surat_pengajuan,
+								id_barang,
+								jml_brg) 
+								VALUES(
+								'$_POST[no_surat_pengajuan]',
+								'$rs[id_barang]',
+								'$rs[jumlah]')");
+				}
 				
 				mysql_query("truncate table tmp");
 				
-				echo "<meta http-equiv='refresh' content='0; url=?module=pengajuan_brg'>";
-				header('location:main.php?module=pengajuan_brg&pesan=Data barang keluar berhasil disimpan ! ');
+				echo "<meta http-equiv='refresh' content='0; url=?module=buat_pengajuan&pesan=Pengajuan Barang Berhasil Dikirim !'>";
+				//header('location:main.php?module=buat_pengajuan&pesan=Data barang keluar berhasil disimpan ! ');
 				
 				}
 				else{
-					header('location:main.php?module=pengajuan_brg&pesan=Data Kosong !');
+					header('location:main.php?module=buat_pengajuan&pesan=Data Kosong !');
 				}
-			}
-		} 
+			} 
 ?>

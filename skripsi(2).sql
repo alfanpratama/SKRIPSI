@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2021 at 10:46 AM
+-- Generation Time: Aug 03, 2021 at 04:27 PM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -56,7 +56,7 @@ INSERT INTO `barang` (`id_barang`, `nama_brg`, `id_kategori`, `harga`, `satuan`,
 
 CREATE TABLE IF NOT EXISTS `brg_keluar` (
   `id_brg_keluar` varchar(8) NOT NULL,
-  `no_surat_pengajuan` varchar(22) NOT NULL,
+  `no_surat_pengajuan` varchar(27) NOT NULL,
   `tgl_keluar` date NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `id_divisi` varchar(6) NOT NULL,
@@ -79,9 +79,9 @@ INSERT INTO `brg_keluar` (`id_brg_keluar`, `no_surat_pengajuan`, `tgl_keluar`, `
 
 CREATE TABLE IF NOT EXISTS `brg_masuk` (
   `id_brg_masuk` varchar(8) NOT NULL,
-  `no_surat_pengadaan` varchar(22) NOT NULL,
+  `no_surat_pengadaan` varchar(27) NOT NULL,
   `tgl_masuk` date NOT NULL,
-  `id_supplier` varchar(5) NOT NULL,
+  `id_supplier` varchar(7) NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`id_brg_masuk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `brg_masuk` (
 --
 
 INSERT INTO `brg_masuk` (`id_brg_masuk`, `no_surat_pengadaan`, `tgl_masuk`, `id_supplier`, `jml_brg`) VALUES
-('BM000001', '01.SPPn/BAUK/2/VIII/20', '2021-08-02', 'SUP00', 22);
+('BM000001', '001.SPPn/BAUK/2/VIII/2021', '2021-08-02', 'SUP001', 22);
 
 -- --------------------------------------------------------
 
@@ -144,7 +144,7 @@ INSERT INTO `detail_brg_masuk` (`id_detail_masuk`, `id_brg_masuk`, `id_barang`, 
 
 CREATE TABLE IF NOT EXISTS `detail_pengadaan` (
   `id_detail` int(11) NOT NULL AUTO_INCREMENT,
-  `no_surat_pengadaan` varchar(22) NOT NULL,
+  `no_surat_pengadaan` varchar(27) NOT NULL,
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(3) NOT NULL,
   PRIMARY KEY (`id_detail`)
@@ -158,11 +158,18 @@ CREATE TABLE IF NOT EXISTS `detail_pengadaan` (
 
 CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   `id_detail` int(11) NOT NULL AUTO_INCREMENT,
-  `no_surat_pengajuan` varchar(22) NOT NULL,
+  `no_surat_pengajuan` varchar(27) NOT NULL,
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(3) NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `detail_pengajuan`
+--
+
+INSERT INTO `detail_pengajuan` (`id_detail`, `no_surat_pengajuan`, `id_barang`, `jml_brg`) VALUES
+(1, '001.SPn/KMHS/2/VIII/20', 'BRG001', 12);
 
 -- --------------------------------------------------------
 
@@ -215,15 +222,12 @@ INSERT INTO `kategori_barang` (`id_kategori`, `nama_kategori`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `pengajuan_brg` (
-  `no_surat_pengajuan` varchar(22) NOT NULL,
+  `no_surat_pengajuan` varchar(27) NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `tgl` date NOT NULL,
   `id_divisi` varchar(6) NOT NULL,
-  `pembuka` varchar(255) NOT NULL,
-  `isi` varchar(255) NOT NULL,
-  `penutup` varchar(255) NOT NULL,
-  `id_barang` varchar(6) NOT NULL,
-  `nama_brg` varchar(30) NOT NULL,
+  `perihal` varchar(255) NOT NULL,
+  `catatan` varchar(255) NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`no_surat_pengajuan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -232,9 +236,9 @@ CREATE TABLE IF NOT EXISTS `pengajuan_brg` (
 -- Dumping data for table `pengajuan_brg`
 --
 
-INSERT INTO `pengajuan_brg` (`no_surat_pengajuan`, `id_user`, `tgl`, `id_divisi`, `pembuka`, `isi`, `penutup`, `id_barang`, `nama_brg`, `jml_brg`) VALUES
-('01.SPn/KMHS/2/VIII/202', '', '0000-00-00', '', '', '', '', '', '', 0),
-('02.SPn/KMHS/2/VIII/202', 'USR001', '2021-08-02', 'DIV001', 'sehubungan akan di lakukan nya peremajaan properti kelas berupa kursi kelas ', '1', '1', 'BRG002', 'Kursi Kelas', 100);
+INSERT INTO `pengajuan_brg` (`no_surat_pengajuan`, `id_user`, `tgl`, `id_divisi`, `perihal`, `catatan`, `jml_brg`) VALUES
+('001.SPn/KMHS/2/VIII/20', '', '0000-00-00', '', '', '', 0),
+('002.SPn/KMHS/2/VIII/20', 'USR001', '2021-08-02', 'DIV001', 'sehubungan akan di lakukan nya peremajaan properti kelas berupa kursi kelas ', '1', 100);
 
 -- --------------------------------------------------------
 
@@ -243,14 +247,11 @@ INSERT INTO `pengajuan_brg` (`no_surat_pengajuan`, `id_user`, `tgl`, `id_divisi`
 --
 
 CREATE TABLE IF NOT EXISTS `pengajuan_pengadaan_brg` (
-  `no_surat_pengadaan` varchar(22) NOT NULL,
+  `no_surat_pengadaan` varchar(27) NOT NULL,
   `id_user` varchar(6) NOT NULL,
   `tgl` date NOT NULL,
   `pembuka` varchar(255) NOT NULL,
-  `isi` varchar(255) NOT NULL,
-  `penutup` varchar(255) NOT NULL,
-  `id_barang` varchar(6) NOT NULL,
-  `nama_brg` varchar(30) NOT NULL,
+  `catatan` varchar(255) NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`no_surat_pengadaan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -259,8 +260,8 @@ CREATE TABLE IF NOT EXISTS `pengajuan_pengadaan_brg` (
 -- Dumping data for table `pengajuan_pengadaan_brg`
 --
 
-INSERT INTO `pengajuan_pengadaan_brg` (`no_surat_pengadaan`, `id_user`, `tgl`, `pembuka`, `isi`, `penutup`, `id_barang`, `nama_brg`, `jml_brg`) VALUES
-('01.SPPn/BAUK/2/VIII/20', 'USR008', '2021-08-02', 'jgjbdakscjbaskc sakc asc', 's', 's', 'BRG002', 'Kursi Kelas', 10);
+INSERT INTO `pengajuan_pengadaan_brg` (`no_surat_pengadaan`, `id_user`, `tgl`, `pembuka`, `catatan`, `jml_brg`) VALUES
+('001.SPPn/BAUK/2/VIII/2021', 'USR008', '2021-08-02', 'jgjbdakscjbaskc sakc asc', 's', 10);
 
 -- --------------------------------------------------------
 
@@ -269,18 +270,21 @@ INSERT INTO `pengajuan_pengadaan_brg` (`no_surat_pengadaan`, `id_user`, `tgl`, `
 --
 
 CREATE TABLE IF NOT EXISTS `stok` (
-  `id_stok` varchar(6) NOT NULL,
+  `id_stok` int(6) NOT NULL AUTO_INCREMENT,
   `id_barang` varchar(6) NOT NULL,
-  `stok` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `stok` int(11) NOT NULL,
+  PRIMARY KEY (`id_stok`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `stok`
 --
 
 INSERT INTO `stok` (`id_stok`, `id_barang`, `stok`) VALUES
-('1', 'BRG001', -2),
-('2', 'BRG002', 13);
+(1, 'BRG001', 44),
+(2, 'BRG002', 10),
+(3, 'BRG003', 100),
+(4, 'BRG006', 100);
 
 -- --------------------------------------------------------
 
@@ -317,11 +321,12 @@ INSERT INTO `supplier` (`id_supplier`, `nama_sup`, `telp`, `alamat`, `cp`, `emai
 
 CREATE TABLE IF NOT EXISTS `tmp` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `no_surat` varchar(22) NOT NULL,
+  `no_surat` varchar(27) NOT NULL,
+  `no_pengajuan` varchar(27) NOT NULL,
   `id_barang` varchar(6) NOT NULL,
   `jumlah` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 -- --------------------------------------------------------
 

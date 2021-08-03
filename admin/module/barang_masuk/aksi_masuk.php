@@ -4,12 +4,8 @@ include "../koneksi.php";
 
 // $module=$_GET[module];
 // $act=$_GET[act];
-
-<<<<<<< HEAD
 // if ($module=='brg_keluar' AND $act=='hapus'){
-=======
 // if ($module=='brg_masuk' AND $act=='hapus'){
->>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 //   mysql_query("DELETE FROM tmp WHERE id='$_GET[id]'");
 //   header('location:../../isi.php?module='.$module);
 // }

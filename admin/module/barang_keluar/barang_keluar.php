@@ -27,8 +27,52 @@
 include '../koneksi.php';
 include 'pengaturan/fungsi_alert.php';
 $aksi='module/barang_keluar/aksi_keluar.php';
+$aksi2='module/barang_keluar/barang_keluar.php';
 
+switch($_GET['aksi3']){
+default:
+?>
+<!-- <h3 class="box-title margin text-center">Data Laporan Pendapatan</h3> -->
+	<br/>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box box-solid box-success">
+				<div class="box-header">
+					<h3 class="btn btn enable box-title">
+						<i class="fa  fa-file-text"></i>
+					Pilih Nomor Surat Pengajuan Barang</h3>		 	
+				</div>		
+				<div class="box-body">
+					
+					<form class="form-horizontal" action="?module=brg_keluar&aksi3=barang_keluar" role="form" method="post">						<div class="form-group">
 
+										<label class="col-sm-4 control-label">No Surat Pengajuan Barang</label>
+										<div class="col-sm-5">  
+											<select name="no_surat_pengajuan" class="form-control select2"  >
+												<option value=""></option>
+												<?php $q = mysql_query ("SELECT * FROM pengajuan_brg");
+												while ($k = mysql_fetch_array($q)){ ?>
+													<option value="<?php echo $k['no_surat_pengajuan']; ?>" 
+														<?php (@$h['no_surat_pengajuan']==$k['no_surat_pengajuan'])?print(" "):print(""); ?>  > <?php  echo $k['no_surat_pengajuan']; ?>
+														</option> <?php } ?>
+													</select>
+												</div>
+											</div>
+						<div class="form-group">
+							<label class="col-sm-4"></label>
+							<div class="col-sm-7">
+								<hr/>
+								<button type="submit"name="submit" class="btn btn-primary"><i class="glyphicon glyphicon-send"></i> Proses</button>
+								 
+							</div>
+						</div>
+					</form>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+		</div>
+<?php
+break;
+case "barang_keluar":
 ?>
 <?php
 if(isset($_GET['pesan'])){
@@ -55,6 +99,18 @@ if(isset($_GET['pesan2'])){
 	</p>
 	</div> ";
 }
+if(isset($_GET['pesan3'])){
+	// echo "<script> alert('Stok Kurang')</script>";
+	// $pesan = $_GET['pesan'];
+	// var_dump($pesan);end;
+	echo "
+	<div style=\"margin-right:10%;margin-left:15%\" class=\"alert alert-success alert-dismissable\">
+	<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>
+	<p><i class=\"icon fa fa-info\"></i>
+	<strong>".$_GET['pesan']."</strong>
+	</p>
+	</div> ";
+}
 ?>
 <div class="box box-solid box-info">
 	<div class="box-header">
@@ -62,8 +118,9 @@ if(isset($_GET['pesan2'])){
 	</div>
 	<div class="box-body table-responsive">
 
+
 		<br>
-		<form class="form-horizontal" method="POST" action="?module=brg_keluar" name="text_form">
+		<form class="form-horizontal" method="POST" action="?module=brg_keluar&aksi3=barang_keluar" name="text_form">
 			<table class="table-bordered">
 				<tr>
 					<th width="600">
@@ -72,10 +129,10 @@ if(isset($_GET['pesan2'])){
 
 							<select name="barang" class="form-control select2" >
 								<option value=""></option>
-								<?php $q = mysql_query ("SELECT * FROM barang");
+								<?php $q = mysql_query ("SELECT * FROM barang a,  detail_pengajuan b  where a.id_barang=b.id_barang AND b.no_surat_pengajuan='$_POST[no_surat_pengajuan]'  ");
 								while ($k = mysql_fetch_array($q)){ ?>
 									<option value="<?php echo $k['id_barang']; ?>" 
-										<?php (@$h['id_barang']==$k['id_barang'])?print(" "):print(""); ?>  > <?php  echo $k['nama_brg']; ?>
+										<?php (@$h['id_barang']==$k['id_barang'])?print(" "):print(""); ?>  > <?php  echo $k['id_barang']."-".$k['nama_brg']; ?>
 										</option> <?php } ?>
 									</select>
 								</div>
@@ -109,11 +166,8 @@ if(isset($_GET['pesan2'])){
 								$no=1;
 								$counter = 1;
 								while ($r=mysql_fetch_array($tampil)){
-<<<<<<< HEAD
-									echo "<td align=center>$no[no_surat]</td>
-=======
 									echo "<td align=center>$no</td>
->>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
+
 									<td align=center>$r[id_barang]</td>";
 
 									$sql=mysql_query("SELECT * FROM barang where id_barang='$r[id_barang]'");
@@ -125,7 +179,7 @@ if(isset($_GET['pesan2'])){
 									<td align=center>$r[jumlah]</td>";
 									?> 
 									<td align=center>
-										<a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=brg_keluar&aksi=hapus&id_barang=<?php echo $r['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r[id_barang]; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
+										<a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=brg_keluar&aksi3=barang_keluar&aksi=hapus&id_barang=<?php echo $r['id_barang'];?>"  alt="Delete Data" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA <?php echo $r[id_barang]; ?>	?')"> <i class="glyphicon glyphicon-trash"></i></a>
 									</td></tr>
 									<?php
 									$no++;
@@ -173,22 +227,14 @@ if(isset($_GET['pesan2'])){
 										</div>
 									</div>
 									<div class="form-group">
-<<<<<<< HEAD
+
 										<label class="col-sm-4 control-label">No Surat Pengajuan Barang</label>
 										<div class="col-sm-5">  
-											<select name="id_user" class="form-control"  >
-												<option value=""></option>
-												<?php $q = mysql_query ("SELECT * FROM pengajuan_brg");
-												while ($k = mysql_fetch_array($q)){ ?>
-													<option value="<?php echo $k['no_surat_pengajuan']; ?>" 
-														<?php (@$h['no_surat_pengajuan']==$k['no_surat_pengajuan'])?print(" "):print(""); ?>  > <?php  echo $k['no_surat_pengajuan']; ?>
-														</option> <?php } ?>
-													</select>
+											<input type=text class="form-control" id="no_surat_pengajuan" name="no_surat_pengajuan" value="<?php echo $_POST['no_surat_pengajuan']; ?>" readonly="yes">
 												</div>
 											</div>
 									<div class="form-group">
-=======
->>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
+
 										<label class="col-sm-4 control-label">Tanggal Barang Keluar</label>   
 										<div class="col-sm-5">
 											<input type=text class="form-control" id="tgl_keluar" name="tgl_keluar" value="<?php echo $tgl; ?>" readonly="yes">
@@ -207,20 +253,19 @@ if(isset($_GET['pesan2'])){
 													</select>
 												</div>
 											</div>
-											<div class="form-group">
-												<label class="col-sm-4 control-label">Divisi</label>
-												<div class="col-sm-5">  
-													<select name="id_divisi" class="form-control"  >
-														<option value=""></option>
-														<?php $q = mysql_query ("SELECT * FROM divisi");
-														while ($k = mysql_fetch_array($q)){ ?>
-															<option value="<?php echo $k['id_divisi']; ?>" 
-																<?php (@$h['id_divisi']==$k['id_divisi'])?print(" "):print(""); ?>  > <?php  echo $k['nama_divisi']; ?>
-																</option> <?php } ?>
-															</select>
-														</div>
-													</div>
-
+									<div class="form-group">
+										<label class="col-sm-4 control-label">Divisi</label>
+										<div class="col-sm-5">  
+											<select name="id_divisi" class="form-control"  >
+												<option value=""></option>
+												<?php $q = mysql_query ("SELECT * FROM divisi");
+												while ($k = mysql_fetch_array($q)){ ?>
+													<option value="<?php echo $k['id_divisi']; ?>" 
+														<?php (@$h['id_divisi']==$k['id_divisi'])?print(" "):print(""); ?>  > <?php  echo $k['nama_divisi']; ?>
+														</option> <?php } ?>
+													</select>
+												</div>
+											</div>
 													<div class="form-group">
 														<label class="col-sm-4"></label>
 														<div class="col-sm-5">
@@ -243,49 +288,47 @@ if(isset($_GET['pesan2'])){
 
 													if(trim($_POST[barang])==""){
 				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Barang !');
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Isi dulu Barang !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Isi dulu Barang !'>";
 													}else if(trim($_POST[qty])==""){
 				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Jumlah Barang !');
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Isi dulu Jumlah Barang !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Isi dulu Jumlah Barang !'>";
+													}
+													else if(trim($_POST[no_surat_pengajuan])==""){
+				// header('location:main.php?module=barangkeluar&pesan=Isi dulu Jumlah Barang !');
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Isi dulu No. Surat Pengajuan !'>";
 													}
 													else if($_POST[qty] > $rscek1[stok]){
 															// header('location:main.php?module=brg_keluar&pesan=Stok Barang ('.$_POST[barang].') Kurang !');
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Stok Barang ($_POST[barang]) Kurang !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Stok Barang ($_POST[barang]) Kurang !'>";
 													}else{
 														mysql_query("INSERT INTO tmp(
 															no_surat,
+															no_pengajuan,
 															id_barang,
 															jumlah) 
 															VALUES(
 															'$_POST[id_brg_keluar]',
+															'$_POST[no_surat_pengajuan]',
 															'$brg',
 															'$_POST[qty]')");
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar'>";
 													}
 												}
 												
-
-
 												if(isset($_POST['btnSimpan'])){
 													$sqlcek=mysql_query("SELECT * FROM tmp");
 													$rscek=mysql_num_rows($sqlcek);
 													if($rscek > 0){
 														mysql_query("INSERT INTO brg_keluar where id_brg_keluar='$_POST[id_brg_keluar]' (
 															id_brg_keluar,
-<<<<<<< HEAD
 															no_surat_pengajuan,
-=======
->>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 															tgl_keluar,
 															id_user,
 															id_divisi,
 															jml_brg) 
 															VALUES(
 															'$_POST[id_brg_keluar]',
-<<<<<<< HEAD
 															'$_POST[no_surat_pengajuan]',
-=======
->>>>>>> fbb15f715ac4da04e49cb5632eaa0a837c758322
 															'$_POST[tgl_keluar]',
 															'$_POST[id_user]',
 															'$_POST[id_divisi]',
@@ -311,14 +354,17 @@ if(isset($_GET['pesan2'])){
 
 														mysql_query("truncate table tmp");
 
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan2=Data barang keluar berhasil disimpan !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Data Barang Keluar berhasil Disimpan !'>";
 														// header('location:main.php?module=brg_keluar&pesan=Data barang keluar berhasil disimpan ! ');
 
 													}
 													else{
-														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&pesan=Data Kosong !'>";
+														echo "<meta http-equiv='refresh' content='0; url=?module=brg_keluar&aksi3=barang_keluar&pesan=Data Kosong !'>";
 														// header('location:main.php?module=brg_keluar&pesan=Data Kosong !');
 													}
 												}
 											} 
 										?>
+<?php
+break;}
+?>

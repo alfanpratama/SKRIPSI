@@ -55,6 +55,9 @@ else if ($_GET['module'] == "stok") {
 else if ($_GET['module'] == "mengelola_pengajuan") {
 	include "module/mengelola_pengajuan/mengelola_pengajuan.php";	
 }
+else if ($_GET['module'] == "mengelola_pengadaan") {
+	include "module/mengelola_pengadaan/mengelola_pengadaan.php";	
+}
 else if ($_GET['module'] == "status_pengajuan") {
 	include "module/status_pengajuan/status_pengajuan.php";	
 }

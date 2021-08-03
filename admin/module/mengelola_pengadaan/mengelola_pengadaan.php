@@ -27,23 +27,23 @@ switch($_GET[aksi]){
 
       <tbody>
         <?php 
-        $sql=("SELECT pengajuan_brg.no_surat_pengajuan,divisi.nama_divisi,user.nama FROM pengajuan_brg INNER JOIN divisi ON pengajuan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_brg.id_user=user.id_user");
+        $sql=("SELECT pengajuan_pengadaan_brg.no_surat_pengadaan,divisi.nama_divisi,user.nama FROM pengajuan_pengadaan_brg INNER JOIN divisi ON pengajuan_pengadaan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_pengadaan_brg.id_user=user.id_user");
 // Tampilkan data dari Database
         $tampil = mysql_query($sql);
         $no=1;
         while ($tampilkan = mysql_fetch_array($tampil)) { 
-          $Kode = $tampilkan['no_surat_pengajuan'];
+          $Kode = $tampilkan['no_surat_pengadaan'];
           ?>
 
           <tr>
-           <td><?php echo $tampilkan['no_surat_pengajuan']; ?></td>
+           <td><?php echo $tampilkan['no_surat_pengadaan']; ?></td>
            <td><?php echo $tampilkan['nama_divisi']; ?></td>	
            <td><?php echo $tampilkan['nama']; ?></td>
 
            <td align="center">
-             <a class="btn btn-xs btn-info" href="?module=mengelola_pengajuan&aksi=tinjau&no_surat_pengajuan=<?php echo $tampilkan['no_surat'];?>" alt="Tinjau Surat"><i class="glyphicon glyphicon-file"></i></a>
-             <a class="btn btn-xs btn-primary" href="?module=mengelola_pengajuan&aksi=acc&no_surat_pengajuan=<?php echo $tampilkan['no_surat'];?>" alt="Disetuji"><i class="glyphicon glyphicon-ok-circle"></i></a>
-             <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=mengelola_pengajuan&aksi=tolak&no_surat_pengajuan=<?php echo $tampilkan['no_surat'];?>"  alt="Ditolak" onclick="return confirm('ANDA YAKIN AKAN MENOLAK PENGAJUAN <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-remove-circle"></i></a>
+             <a class="btn btn-xs btn-info" href="?module=mengelola_pengajuan&aksi=tinjau&no_surat_pengadaan=<?php echo $tampilkan['no_surat'];?>" alt="Tinjau Surat"><i class="glyphicon glyphicon-file"></i></a>
+             <a class="btn btn-xs btn-primary" href="?module=mengelola_pengajuan&aksi=acc&no_surat_pengadaan=<?php echo $tampilkan['no_surat'];?>" alt="Disetuji"><i class="glyphicon glyphicon-ok-circle"></i></a>
+             <a class="btn btn-xs btn-danger"href="<?php echo $aksi ?>?module=mengelola_pengajuan&aksi=tolak&no_surat_pengadaan=<?php echo $tampilkan['no_surat'];?>"  alt="Ditolak" onclick="return confirm('ANDA YAKIN AKAN MENOLAK PENGAJUAN <?php echo $Kode; ?>	?')"> <i class="glyphicon glyphicon-remove-circle"></i></a>
            </td>
            
            <?php
