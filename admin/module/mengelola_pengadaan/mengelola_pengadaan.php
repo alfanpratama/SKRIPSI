@@ -1,18 +1,18 @@
 <?php
-$aksi="module/mengelola_pengajuan/aksi_mengelola_pengajuan.php";
+$aksi="module/mengelola_pengadaan/aksi_mengelola_pengadaan.php";
 
 switch($_GET[aksi]){
   default:
   ?>
   <!----- ------------------------- MENAMPILKAN DATA MASTER divisi ------------------------- ----->			
-  <h3 class="box-title margin text-center">Data Pengajuan Barang</h3>
+  <h3 class="box-title margin text-center">Data Pengajuan Pengadan Barang</h3>
   <center> <div class="batas"> </div></center>
   <hr/>
   <div class="box box-solid box-info">
     <div class="box-header">
       <h3 class="btn btn enable box-title">
         <i class="fa fa-map-marker"></i>
-      Data Pengajuan Barang</h3>		
+      Data Pengajuan Pengadaan Barang</h3>		
       </div>		
       <div class="box-body table-responsive">
        <table id="example1" class="table table-bordered table-striped">
@@ -21,13 +21,14 @@ switch($_GET[aksi]){
           <th class="col-sm-2">Nomer Surat</th>
           <th class="col-sm-1">Nama Divisi</th>
           <th class="col-sm-2">Nama Pemohon</th>
+          <th class="col-sm-1">Tanggal</th>>
           <th class="col-sm-1">Aksi</th>
         </tr>
       </thead>
 
       <tbody>
         <?php 
-        $sql=("SELECT pengajuan_pengadaan_brg.no_surat_pengadaan,divisi.nama_divisi,user.nama FROM pengajuan_pengadaan_brg INNER JOIN divisi ON pengajuan_pengadaan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_pengadaan_brg.id_user=user.id_user");
+        $sql=("SELECT pengajuan_pengadaan_brg.no_surat_pengadaan,pengajuan_pengadaan_brg.tgl,divisi.nama_divisi,user.nama FROM pengajuan_pengadaan_brg INNER JOIN divisi ON pengajuan_pengadaan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_pengadaan_brg.id_user=user.id_user");
 // Tampilkan data dari Database
         $tampil = mysql_query($sql);
         $no=1;
@@ -39,6 +40,7 @@ switch($_GET[aksi]){
            <td><?php echo $tampilkan['no_surat_pengadaan']; ?></td>
            <td><?php echo $tampilkan['nama_divisi']; ?></td>	
            <td><?php echo $tampilkan['nama']; ?></td>
+           <td><?php echo $tampilkan['tgl']; ?></td>
 
            <td align="center">
              <a class="btn btn-xs btn-info" href="?module=mengelola_pengajuan&aksi=tinjau&no_surat_pengadaan=<?php echo $tampilkan['no_surat'];?>" alt="Tinjau Surat"><i class="glyphicon glyphicon-file"></i></a>

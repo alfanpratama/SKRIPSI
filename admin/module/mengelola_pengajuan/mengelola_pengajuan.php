@@ -21,13 +21,14 @@ switch($_GET[aksi]){
           <th class="col-sm-2">Nomer Surat</th>
           <th class="col-sm-1">Nama Divisi</th>
           <th class="col-sm-2">Nama Pemohon</th>
+          <th class="col-sm-1">Tanggal</th>
           <th class="col-sm-1">Aksi</th>
         </tr>
       </thead>
 
       <tbody>
         <?php 
-        $sql=("SELECT pengajuan_brg.no_surat_pengajuan,divisi.nama_divisi,user.nama FROM pengajuan_brg INNER JOIN divisi ON pengajuan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_brg.id_user=user.id_user");
+        $sql=("SELECT pengajuan_brg.no_surat_pengajuan,divisi.nama_divisi,user.nama,pengajuan_brg.tgl FROM pengajuan_brg INNER JOIN divisi ON pengajuan_brg.id_divisi=divisi.id_divisi INNER JOIN user ON pengajuan_brg.id_user=user.id_user");
 // Tampilkan data dari Database
         $tampil = mysql_query($sql);
         $no=1;
@@ -39,6 +40,7 @@ switch($_GET[aksi]){
            <td><?php echo $tampilkan['no_surat_pengajuan']; ?></td>
            <td><?php echo $tampilkan['nama_divisi']; ?></td>	
            <td><?php echo $tampilkan['nama']; ?></td>
+           <td><?php echo $tampilkan['tgl']; ?></td>
 
            <td align="center">
              <a class="btn btn-xs btn-info" href="?module=mengelola_pengajuan&aksi=tinjau&no_surat_pengajuan=<?php echo $tampilkan['no_surat'];?>" alt="Tinjau Surat"><i class="glyphicon glyphicon-file"></i></a>

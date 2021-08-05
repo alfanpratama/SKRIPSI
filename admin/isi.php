@@ -52,6 +52,12 @@ else if ($_GET['module'] == "tambah_divisi") {
 else if ($_GET['module'] == "stok") {
 	include "module/stok/stok.php";	
 }
+else if ($_GET['module'] == "cek_pengajuan") {
+	include "module/cek_pengajuan/cek_pengajuan.php";	
+}
+else if ($_GET['module'] == "cek_pengadaan") {
+	include "module/cek_pengadaan/cek_pengadaan.php";	
+}
 else if ($_GET['module'] == "mengelola_pengajuan") {
 	include "module/mengelola_pengajuan/mengelola_pengajuan.php";	
 }
