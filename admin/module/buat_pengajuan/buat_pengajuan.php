@@ -28,11 +28,13 @@ $().ready(function() {
 include '../koneksi.php';
 include '../inc/cek_session.php';
 $aksi='module/buat_pengajuan/buat_pengajuan.php';
-if($_SESSION['level']!="kepala_divisi" )
 //membuat inisial nama
-			$jml= mysql_num_rows(mysql_query('SELECT * FROM divisi'));
-			$kode_unik = $jml+1;
-			$inisial =strtoupper(substr($_SESSION['nama_divisi'],0,2));
+			
+			$sql7 ="SELECT * FROM divisi WHERE nama_divisi=nama_divisi and id_user='$_SESSION[id]'";
+  			$hasil7 = mysql_query($sql7);
+  			$data7 = mysql_fetch_array($hasil7);
+			$kode_unik = $sql7+1;
+			$inisial =strtoupper(substr($data7['nama_divisi'],0,4));
 
 			include "fungsi-romawi.php";
 			$tanggal= date ('d');
@@ -55,6 +57,11 @@ if($_SESSION['level']!="kepala_divisi" )
 			// var_dump($nomorbaru);
 			// var_dump($no);exit;
 			  $tgl = date('Y-m-d');
+
+
+$sql5 ="SELECT * FROM divisi WHERE nama_divisi=nama_divisi and id_user='$_SESSION[id]'";
+  $hasil5 = mysql_query($sql5);
+  $data5 = mysql_fetch_array($hasil5);
 			?>
 
 <div class="box box-solid box-info">
@@ -119,13 +126,13 @@ if(isset($_GET['pesan3'])){
           <div class="form-group">
     		<label class="col-sm-2 control-label">Pemohon</label>
     		<div class="col-sm-5">  
-    			<input type=text class="form-control" id="id_user" name="id_user" value="<?php echo $_SESSION['nama']; ?>" readonly="yes">
+    			<input type=text class="form-control" id="id_user" name="id_user" value="<?php echo $_SESSION['username']; ?>" readonly="yes">
     		</div>
   		  </div>
   		  <div class="form-group">
     		<label class="col-sm-2 control-label">Divisi</label>
     		<div class="col-sm-5">
-          	<input type=text class="form-control" id="id_divisi" name="id_divisi" value="<?php echo $_SESSION['id_divisi']; ?>" readonly="yes">
+          		<input type=text class="form-control" id="id_divisi" name="id_divisi" value="<?php echo $data5['nama_divisi']; ?>" readonly="yes">
           	</div>
   		  </div>
   		  <div class="form-group">
@@ -243,7 +250,7 @@ echo "<tr>
 				$sqlcek=mysql_query("SELECT * FROM tmp");
 				$rscek=mysql_num_rows($sqlcek);
 				if($rscek > 0){
-					mysql_query("INSERT INTO pengajuan_brg where no_surat_pengajuan='$_POST[no_surat_pengajuan]' (
+					mysql_query("INSERT INTO pengajuan_brg(
 								no_surat_pengajuan,
 								id_user,
 								tgl,
@@ -259,7 +266,7 @@ echo "<tr>
 								'$_POST[jml]')");
 				$sql=mysql_query("SELECT * FROM tmp");
 				while($rs=mysql_fetch_array($sql)){
-				mysql_query("INSERT INTO detail_pengajuan where no_surat_pengajuan='$_POST[no_surat_pengajuan]'(
+				mysql_query("INSERT INTO detail_pengajuan(
 								no_surat_pengajuan,
 								id_barang,
 								jml_brg) 

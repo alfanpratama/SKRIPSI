@@ -38,7 +38,7 @@ $aksi='module/buat_pengadaan/buat_pengadaan.php';
 			$nomor 	= ".SPPn/".$inisial."/".$tanggal."/".$romawi."/".$tahun;
 
 		// membaca kode / nilai tertinggi dari penomoran yang ada didatabase berdasarkan tanggal
-			$query = "SELECT (left( no_surat_pengadaan, 3 )) AS maxKode FROM pengadaan_brg ORDER BY left( no_surat_pengadaan, 3 ) desc";
+			$query = "SELECT (left( no_surat_pengadaan, 3 )) AS maxKode FROM pengajuan_pengadaan_brg ORDER BY left( no_surat_pengadaan, 3 ) desc";
 			$hasil = mysql_query($query);
 			$data  = mysql_fetch_array($hasil);
 			$no= $data['maxKode'];
@@ -239,23 +239,23 @@ echo "<tr>
 				$sqlcek=mysql_query("SELECT * FROM tmp");
 				$rscek=mysql_num_rows($sqlcek);
 				if($rscek > 0){
-					mysql_query("INSERT INTO pengajuan_brg where no_surat_pengadaan='$_POST[no_surat_pengadaan]' (
+					mysql_query("INSERT INTO pengajuan_pengadaan_brg(
 								no_surat_pengadaan,
-								id_user,
 								tgl,
+								id_user,
 								id_divisi,
 								perihal,
 								jml_brg) 
 								VALUES(
 								'$_POST[no_surat_pengadaan]',
-								'$_POST[id_user]',
 								'$_POST[tgl]',
+								'$_POST[id_user]',
 								'$_POST[id_divisi]',
 								'$_POST[perihal]',
 								'$_POST[jml]')");
 				$sql=mysql_query("SELECT * FROM tmp");
 				while($rs=mysql_fetch_array($sql)){
-				mysql_query("INSERT INTO detail_pengadaan where no_surat_pengadaan='$_POST[no_surat_pengadaan]'(
+				mysql_query("INSERT INTO detail_pengadaan(
 								no_surat_pengadaan,
 								id_barang,
 								jml_brg) 

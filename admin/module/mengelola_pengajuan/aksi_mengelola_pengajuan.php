@@ -4,43 +4,33 @@ include "../koneksi.php";
 $module=$_GET['module'];
 $aksi=$_GET['aksi'];
 
-$id = $_POST['id_divisi'];
+$no_surat_pengajuan = $_POST['no_surat_pengajuan'];
 $nama_divisi = $_POST['nama_divisi'];
-$kepala_divisi = $_POST['kepala_divisi'];
-$telp = $_POST['telp'];
-$email = $_POST['email'];
+$nama = $_POST['nama'];
+$tgl = $_POST['tgl'];
+$catatan = $_POST['catatan'];
+$acc = $_POST['acc'];
 
 // HAPUS
-if($module=='divisi' AND $aksi=='hapus' ){ 
-$mySql = "DELETE FROM divisi WHERE id_divisi='".$_GET['id_divisi']."'";
-$myQry = mysql_query($mySql);
-//header('location:../../index.php?module='.$module);
-echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
-echo "<script> alert('Data Berhasil Di Hapus')</script>";
-
-
+if($module=='mengelola_pengajuan' AND $aksi=='Ditolak' ){ 
+$sql = "UPDATE pengajuan_brg SET acc='N' WHERE no_surat_pengajuan = '".$_GET['no_surat_pengajuan']."'";
+$hapus = mysql_query($sql);
+header('location:../../index.php?module='.$module);
 }
+// EDIT
+else if($module=='mengelola_pengajuan' AND $aksi=='Disetujui' ){ 
+$sql = "UPDATE pengajuan_brg SET acc='Y' WHERE no_surat_pengajuan = '".$_GET['no_surat_pengajuan']."'";
+$hapus = mysql_query($sql);
 
+header('location:../../index.php?module='.$module);
+}
 //Tambah
-else if($module=='divisi' AND $aksi=='tambah' ){ 
-	
-$sql = "INSERT INTO divisi  (id_divisi, nama_divisi, kepala_divisi, telp, email, id_user) VALUES ('$id', '$nama_divisi', '$kepala_divisi', '$telp', '$email', '$id_user' )";
-$simpan = mysql_query($sql);
+else if($module=='mengelola_pengajuan' AND $aksi=='edit' ){ 
+mysql_query("UPDATE pengajuan_brg SET 
+catatan='$catatan',
+WHERE no_surat_pengajuan = '$no_surat_pengajuan'");
 echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
-echo "<script> alert('Data Berhasil Di Simpan')</script>";//header('location:../../index.php?module='.$module);
-
-}
-
-//EDIT
-else if($module=='divisi' AND $aksi=='edit' ){ 
-mysql_query("UPDATE divisi SET 
-nama_divisi='$nama_divisi',
-kepala_divisi='kepala_divisi',
-telp='$telp',
-email='$email',
-WHERE id_divisi = '$id'");
+echo "<script> alert('Catatan Berhasil di Tambahkan')</script>";
 //header('location:../../index.php?module='.$module);
-echo("<META HTTP-EQUIV=Refresh CONTENT=\"0.1;URL=../../index.php?module=$module\">");
-echo "<script> alert('Data Berhasil Di Edit')</script>";
 }
 ?>

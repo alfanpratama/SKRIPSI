@@ -9,7 +9,8 @@ function sukses_masuk($username,$pass){
 	  include "timeout.php";
 		$_SESSION['username']     = $r['user']; 
 		$_SESSION['passuser']     = $r['pass'];
-		$_SESSION['level']    = $r['level'];
+		$_SESSION['level']        = $r['level'];
+    $_SESSION['id_user']      =$r['id_user'];
 
 		
 if ($r['level'] == "admin")

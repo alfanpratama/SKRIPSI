@@ -248,7 +248,7 @@ if(isset($_GET['pesan2'])){
 													$sqlcek=mysql_query("SELECT * FROM tmp");
 													$rscek=mysql_num_rows($sqlcek);
 													if($rscek > 0){
-														mysql_query("INSERT INTO brg_masuk where id_brg_masuk='$_POST[id_brg_masuk]' (
+														mysql_query("INSERT INTO brg_masuk (
 															id_brg_masuk,
 															no_surat_pengadaan,
 															tgl_masuk,
@@ -262,7 +262,7 @@ if(isset($_GET['pesan2'])){
 															'$_POST[jml]')");
 														$sql=mysql_query("SELECT * FROM tmp");
 														while($rs=mysql_fetch_array($sql)){
-															mysql_query("INSERT INTO detail_brg_masuk where id_brg_masuk='$_POST[id_brg_masuk]'(
+															mysql_query("INSERT INTO detail_brg_masuk (
 																id_brg_masuk,
 																id_barang,
 																jml_brg) 
