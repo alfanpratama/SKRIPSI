@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 06:01 AM
+-- Generation Time: Aug 08, 2021 at 05:14 PM
 -- Server version: 5.5.36
 -- PHP Version: 5.4.27
 
@@ -68,7 +68,10 @@ CREATE TABLE IF NOT EXISTS `brg_keluar` (
 --
 
 INSERT INTO `brg_keluar` (`id_brg_keluar`, `no_surat_pengajuan`, `tgl_keluar`, `id_user`, `id_divisi`, `jml_brg`) VALUES
-('BK000001', '001.SPn/KHMS/1/VIII/2021', '2021-07-01', 'USR001', 'DIV001', 18);
+('BK000001', '001.SPn/KHMS/1/VIII/2021', '2021-07-01', 'USR001', 'DIV001', 18),
+('BK000002', '', '2021-08-05', 'USR001', 'DIV001', 13),
+('BK000003', '', '2021-08-05', 'USR005', 'DIV001', 4),
+('BK000004', '003.SPn/ADMI/05/VIII/2021', '2021-08-05', '', 'DIV001', 22);
 
 -- --------------------------------------------------------
 
@@ -90,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `brg_masuk` (
 --
 
 INSERT INTO `brg_masuk` (`id_brg_masuk`, `no_surat_pengadaan`, `tgl_masuk`, `id_supplier`, `jml_brg`) VALUES
-('BM000001', '001.SPPn/BAUK/2/VIII/2021', '2021-08-02', 'SUP003', 22);
+('BM000001', '001.SPPn/BAUK/2/VIII/2021', '2021-08-02', 'SUP003', 22),
+('BM000002', '002.SPPn/BAUK/05/VIII/2021', '2021-08-05', 'SUP002', 22);
 
 -- --------------------------------------------------------
 
@@ -104,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `detail_brg_keluar` (
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`id_detail_keluar`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `detail_brg_keluar`
@@ -112,7 +116,11 @@ CREATE TABLE IF NOT EXISTS `detail_brg_keluar` (
 
 INSERT INTO `detail_brg_keluar` (`id_detail_keluar`, `id_brg_keluar`, `id_barang`, `jml_brg`) VALUES
 (1, 'BK000001', 'BRG001', 6),
-(2, 'BK000001', 'BRG002', 4);
+(2, 'BK000001', 'BRG002', 4),
+(3, 'BK000002', 'BRG001', 1),
+(4, 'BK000002', 'BRG003', 12),
+(5, 'BK000003', 'BRG003', 4),
+(6, 'BK000004', 'BRG001', 22);
 
 -- --------------------------------------------------------
 
@@ -126,14 +134,15 @@ CREATE TABLE IF NOT EXISTS `detail_brg_masuk` (
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`id_detail_masuk`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `detail_brg_masuk`
 --
 
 INSERT INTO `detail_brg_masuk` (`id_detail_masuk`, `id_brg_masuk`, `id_barang`, `jml_brg`) VALUES
-(1, 'BM000001', 'BRG002', 22);
+(1, 'BM000001', 'BRG002', 22),
+(2, 'BM000002', 'BRG001', 22);
 
 -- --------------------------------------------------------
 
@@ -147,7 +156,15 @@ CREATE TABLE IF NOT EXISTS `detail_pengadaan` (
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(3) NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `detail_pengadaan`
+--
+
+INSERT INTO `detail_pengadaan` (`id_detail`, `no_surat_pengadaan`, `id_barang`, `jml_brg`) VALUES
+(1, '002.SPPn/BAUK/05/VIII/2021', 'BRG003', 5),
+(2, '002.SPPn/BAUK/05/VIII/2021', 'BRG001', 2);
 
 -- --------------------------------------------------------
 
@@ -161,14 +178,15 @@ CREATE TABLE IF NOT EXISTS `detail_pengajuan` (
   `id_barang` varchar(6) NOT NULL,
   `jml_brg` int(3) NOT NULL,
   PRIMARY KEY (`id_detail`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `detail_pengajuan`
 --
 
 INSERT INTO `detail_pengajuan` (`id_detail`, `no_surat_pengajuan`, `id_barang`, `jml_brg`) VALUES
-(1, '001.SPn/KMHS/2/VIII/20', 'BRG001', 12);
+(1, '001.SPn/KMHS/2/VIII/20', 'BRG001', 12),
+(2, '003.SPn/ADMI/05/VIII/2021', 'BRG001', 2);
 
 -- --------------------------------------------------------
 
@@ -191,7 +209,7 @@ CREATE TABLE IF NOT EXISTS `divisi` (
 --
 
 INSERT INTO `divisi` (`id_divisi`, `nama_divisi`, `kepala_divisi`, `telp`, `email`, `id_user`) VALUES
-('DIV001', 'Kemahasiswaan', 'Ali Mulyawan', 2147483647, 'alimul@gmail.com', 'Ali Mu');
+('DIV001', 'Kemahasiswaan', 'Ali Mulyawan', 2147483647, 'alimul@gmail.com', 'USR008');
 
 -- --------------------------------------------------------
 
@@ -227,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_brg` (
   `id_divisi` varchar(6) NOT NULL,
   `perihal` varchar(255) NOT NULL,
   `catatan` varchar(255) NOT NULL,
-  `acc` enum('N','Y','X') NOT NULL,
+  `acc` enum('X','N','Y') NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`no_surat_pengajuan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -237,8 +255,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_brg` (
 --
 
 INSERT INTO `pengajuan_brg` (`no_surat_pengajuan`, `id_user`, `tgl`, `id_divisi`, `perihal`, `catatan`, `acc`, `jml_brg`) VALUES
-('001.SPn/KMHS/2/VIII/20', '', '0000-00-00', '', '', '', 'N', 0),
-('002.SPn/KMHS/2/VIII/20', 'USR001', '2021-08-02', 'DIV001', 'sehubungan akan di lakukan nya peremajaan properti kelas berupa kursi kelas ', '1', 'N', 100);
+('003.SPn/ADMI/05/VIII/2021', 'USR008', '2021-08-05', 'DIV001', 'asddasdas', '', 'X', 2);
 
 -- --------------------------------------------------------
 
@@ -253,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `pengajuan_pengadaan_brg` (
   `id_divisi` varchar(6) NOT NULL,
   `perihal` varchar(255) NOT NULL,
   `catatan` varchar(255) NOT NULL,
-  `acc` enum('N','Y','X') NOT NULL,
+  `acc` enum('X','N','Y') NOT NULL,
   `jml_brg` int(5) NOT NULL,
   PRIMARY KEY (`no_surat_pengadaan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -263,7 +280,8 @@ CREATE TABLE IF NOT EXISTS `pengajuan_pengadaan_brg` (
 --
 
 INSERT INTO `pengajuan_pengadaan_brg` (`no_surat_pengadaan`, `id_user`, `tgl`, `id_divisi`, `perihal`, `catatan`, `acc`, `jml_brg`) VALUES
-('001.SPPn/BAUK/2/VIII/2021', 'USR008', '2021-08-02', 'DIV001', 'pengajuan pengadaan PC', 's', 'N', 10);
+('001.SPPn/BAUK/2/VIII/2021', 'USR008', '2021-08-02', 'DIV001', 'pengajuan pengadaan PC', 's', 'X', 10),
+('002.SPPn/BAUK/05/VIII/2021', 'admin', '2021-08-05', 'BAUK', 'wqrqwrwqrwqrqwrwqwr', '', 'X', 7);
 
 -- --------------------------------------------------------
 
@@ -283,8 +301,8 @@ CREATE TABLE IF NOT EXISTS `stok` (
 --
 
 INSERT INTO `stok` (`id_stok`, `id_barang`, `stok`) VALUES
-(1, 'BRG001', 44),
-(3, 'BRG003', 100),
+(1, 'BRG001', 43),
+(3, 'BRG003', 109),
 (4, 'BRG006', 100);
 
 -- --------------------------------------------------------
@@ -327,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `tmp` (
   `id_barang` varchar(6) NOT NULL,
   `jumlah` int(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
