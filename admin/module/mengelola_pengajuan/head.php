@@ -1,6 +1,6 @@
 <?php
 
-include "inc/koneksi.php";
+include "/inc/koneksi.php";
 
 include "inc/inc.library.php";
 $tglhariini=date('d-m-Y');
@@ -10,7 +10,7 @@ $tglhariini=date('d-m-Y');
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Sistem Informasi Monitoring Transaksi Penawaran</title>
+    <title>Sistem Informasi Pengadaan Barang STMIK Mardira Indonesia</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <link href="../../../aset/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <!-- Bootstrap 3.3.4 -->
@@ -36,7 +36,7 @@ $tglhariini=date('d-m-Y');
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <a href="../../../../../aset//index2.html" class="navbar-brand"><b>Sistem Monitoring Transaksi Penawaran</b>&nbsp;CV Amoeba Biosintesa</a>
+              <a href="../../../../../aset//index2.html" class="navbar-brand"><b>Sistem Informasi Pengadaan Barang</b>&nbsp;STMIK Mardira Indonesia</a>
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
                 <i class="fa fa-bars"></i>
               </button>

@@ -1,72 +1,78 @@
 <?php 
 include "head.php";
 ?>
+<?php 
+        $sql=("SELECT pengajuan_brg.tgl,pengajuan_brg.no_surat_pengajuan,pengajuan_brg.perihal,user.nama,divisi.nama_divisi,pengajuan_brg.tgl,detail_pengajuan.id_barang,barang.nama_brg,detail_pengajuan.jml_brg FROM pengajuan_brg INNER JOIN user ON pengajuan_brg.id_user=user.id_user INNER JOIN divisi ON pengajuan_brg.id_divisi=divisi.id_divisi INNER JOIN detail_pengajuan ON pengajuan_brg.no_surat_pengajuan=detail_pengajuan.no_surat_pengajuan INNER JOIN barang ON detail_pengajuan.id_barang=barang.id_barang WHERE pengajuan_brg.no_surat_pengajuan='$_GET[no_surat_pengajuan]'");
+// Tampilkan data dari Database
+        $tampil = mysql_query($sql);
+        $no=1;
+        while ($tampilkan = mysql_fetch_array($tampil)) { 
+          $Kode = $tampilkan['no_surat_pengajuan'];
+          ?>
           <section class="content-header">
             <h1>
-             Laporan
-              <small>Data Pegawai</small>
+             Surat Pengajuan Barang
             </h1>
             <ol class="breadcrumb">
-              <li><a href="#"><i class="fa fa-dashboard"></i> Laporan</a></li>
-              <li class="active">Data Pegawai</li>
+              <li><a href="#"> Surat Pengajuan Barang</a></li>
             </ol>
           </section>
 
            
           <section class="content">
             <div class="text-center">
-			<h3><img src="inc/zt.png"/></h3>
-			<b>Jalan Srikandi, Komp Ruko Wadya Graha II No. 7 - 8 Panam <br/>
-			Pekanbaru, RIAU</b>
+			<h3><img src="inc/kop.png"/></h3>
 			</div><br/>
-             
             <div class="box box-default">
               <div class="box-header with-border">
-                <h3 class="box-title center">Daftar Pegawai</h3>
-				<span class="pull-right">
-				Pekanbaru, <?php echo Indonesia2Tgl(date('Y-m-d'));?> 
-				</span>					
-              </div>
+              	<br>
+              	<span class="pull-right"><h4>
+				Bandung, <?php echo $tampilkan['tgl']; ?></h4> 
+				</span>
+              	<br>
+                <h4 class="box-title center">Nomor Surat 	: <?php echo $tampilkan['no_surat_pengajuan']; ?></h4><br>
+                <h4 class="box-title center">Lampiran 		: -</h4><br>
+				<h4 class="box-title center">Hal			: Pengajuan Barang</h4>
+				<br>
+				<br>
+				<h4 class="box-title center">Kepada Yth Bapa/Ibu Pimpinan </h4><br>
+				<h4 class="box-title center">di</h4><br>
+				<h4 class="box-title center">Tempat</h4>
+				<br>
+				<br>
+				<h4 class="box-title center">Dengan Hormat</h4><br><br>
+              	<h4 class="box-title center"><?php echo $tampilkan['perihal']; ?> maka dengan ini saya : </h4><br><br>
+              	<h4 class="box-title center">Nama 		 	: <?php echo $tampilkan['nama']; ?></h4><br>
+                <h4 class="box-title center">Divisi 		: <?php echo $tampilkan['nama_divisi']; ?></h4><br><br>
+              	<h4 class="box-title center">memohon kepada  Bapa/Ibu Pimpinan untuk menyetujui pengjuan barang barang tersebut dengan data barang sebagai berikut :</h4>
+              	</div>
               <div class="box-body">
+         <?php
+     ?>
 <table class="table table-bordered table-striped">
-<thead>
-	<tr class="text-black">
-		<th class="col-xs-1">No</th>
-		<th class="col-sm-1">NIP</th>
-		<th class="col-sm-3">Nama pegawai</th>
-		<th class="col-sm-1">JK</th> 
-		<th>Tempat/Tgl. Lahir</th> 
-		<th class="col-sm-1">No. HP</th> 
-		<th class="col-sm-1">Email</th>
-		<th class="col-sm-1">Tgl. Masuk</th>		
-	</tr>
-</thead>
+	<thead>
 
-<tbody>
-<?php 
-// Tampilkan data dari Database
-$sql = "SELECT * FROM pegawai";
-$tampil = mysql_query($sql);
-$no=1;
-while ($data = mysql_fetch_array($tampil)) { ?>
-
-	<tr>
-	<td><?php echo $no++; ?></td>
-	<td><?php echo $data['nip']; ?></td>
-	<td><?php echo $data['nm_pegawai']; ?></td>
-	<td><?php echo $data['jk']; ?></td>
-	<td><?php echo $data['tpt_lhr'] .", ". IndonesiaTgl($data['tgl_lhr']); ?></td>
-	<td><?php echo $data['no_hp']; ?></td>
-	<td><?php echo $data['email']; ?></td>	
-	<td><?php echo IndonesiaTgl($data['tgl_msk']); ?></td>
+		<tr class="text-black">
+			<th class="col-xs-1">No</th>
+			<th class="col-sm-1">Id Barang</th>
+			<th class="col-sm-3">Nama Barang</th>
+			<th class="col-sm-1">Jumlah Barang</th>		
+		</tr>
+	</thead>
+	<tbody>
+        <tr>
+           <td><?php echo $no++; ?></td>
+           <td><?php echo $tampilkan['id_barang']; ?></td>
+           <td><?php echo $tampilkan['nama_brg']; ?></td>	
+           <td><?php echo $tampilkan['jml_brg']; ?></td>
+        </tr>
+	</tbody>
+</table>	
 <?php
 }
 ?>
-	</tr>
-			</tbody>
-		</table>	
-              </div><!-- /.box-body -->
-            </div>
+         	</div><!-- /.box-body -->
+        </div>
           </section><!-- /.content -->
 <?php
 include "tail.php";
