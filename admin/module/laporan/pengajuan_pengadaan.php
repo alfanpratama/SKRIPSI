@@ -2,24 +2,25 @@
 include "head.php";
 ?>
 <?php 
-        $sql=("SELECT pengajuan_brg.tgl,pengajuan_brg.no_surat_pengajuan,pengajuan_brg.perihal,user.nama,divisi.nama_divisi,pengajuan_brg.tgl,detail_pengajuan.id_barang,barang.nama_brg,detail_pengajuan.jml_brg,user.nama FROM pengajuan_brg INNER JOIN user ON pengajuan_brg.id_user=user.id_user INNER JOIN divisi ON pengajuan_brg.id_divisi=divisi.id_divisi INNER JOIN detail_pengajuan ON pengajuan_brg.no_surat_pengajuan=detail_pengajuan.no_surat_pengajuan INNER JOIN barang ON detail_pengajuan.id_barang=barang.id_barang WHERE pengajuan_brg.no_surat_pengajuan='$_GET[no_surat_pengajuan]'");
+        $sql=("SELECT pengajuan_pengadaan_brg.tgl,pengajuan_pengadaan_brg.no_surat_pengadaan,pengajuan_pengadaan_brg.perihal,user.nama,divisi.nama_divisi,pengajuan_pengadaan_brg.tgl,detail_pengadaan.id_barang,barang.nama_brg,detail_pengadaan.jml_brg,user.nama FROM pengajuan_pengadaan_brg INNER JOIN user ON pengajuan_pengadaan_brg.id_user=user.id_user INNER JOIN divisi ON pengajuan_pengadaan_brg.id_divisi=divisi.id_divisi INNER JOIN detail_pengadaan ON pengajuan_pengadaan_brg.no_surat_pengadaan=detail_pengadaan.no_surat_pengadaan INNER JOIN barang ON detail_pengadaan.id_barang=barang.id_barang WHERE pengajuan_pengadaan_brg.no_surat_pengadaan='$_GET[no_surat_pengadaan]'");
 // Tampilkan data dari Database
         $tampil = mysql_query($sql);
         $no=1;
         while ($tampilkan = mysql_fetch_array($tampil)) { 
-          $Kode = $tampilkan['no_surat_pengajuan'];
+          $Kode = $tampilkan['no_surat_pengadaan'];
           ?>
           <section class="content-header">
             <h1>
-             Surat Pengajuan Barang
+             Surat Pengajuan Pengadaan Barang
             </h1>
             <ol class="breadcrumb">
-              <li><a href="#"> Surat Pengajuan Barang</a></li>
+              <li><a href="#"> Surat Pengajuan Pengadaan Barang</a></li>
             </ol>
           </section>
 
            
           <section class="content">
+          	
             <div class="text-center">
 			<h3><img src="inc/kop.png"/></h3>
 			</div><br/>
@@ -30,8 +31,7 @@ include "head.php";
 				Bandung, <?php echo $tampilkan['tgl']; ?></h4> 
 				</span>
               	<br>
-                <h4 class="box-title center">Nomor Surat 	: <?php echo $tampilkan['no_surat_pengajuan']; ?></h4><br>
-                <h4 class="box-title center">Lampiran 		: -</h4><br>
+                <h4 class="box-title center">Nomor Surat : <?php echo $tampilkan['no_surat_pengadaan']; ?></h4><br>
 				<h4 class="box-title center">Hal			: Pengajuan Barang</h4>
 				<br>
 				<br>
@@ -69,14 +69,24 @@ include "head.php";
 	</tbody>
 </table>	
 <br><br> <div class="box-header with-border">
-			<span class="pull-right"><h4>
-				BAUK</h4>
-				<br><br><br><br>
-				<h4 class="box-title center">Dewi Lokayati S.Kom</h4>			 
+  <span class="pull-left">
+        <h4 class="box-title center">Pemohon</h4><br><br><br><br>
+        <h4 class="box-title center"><?php echo $tampilkan['nama']; ?></h4><br>
+        <h4 class="box-title center">NIK :</h4>
+      </span>
+  <span class="pull-center">
+        <h4 class="box-title center">Pimpinan</h4>
+        <br><br><br><br>
+        <h4 class="box-title center">Dr Marjito M.Pd</h4><br>
+        <h4 class="box-title center">NIK :</h4>
+        </span>
+			<span class="pull-right">
+        <h4 class="box-title center">Yayasan</h4>
+        <br><br><br><br>
+        <h4 class="box-title center">(........)</h4><br>
+        <h4 class="box-title center">NIK :</h4>
 				</span>
-				<h4 class="box-title center">Pemohon</h4><br><br><br><br>
-				<h4 class="box-title center"><?php echo $tampilkan['nama']; ?></h4><br>
-				<h4 class="box-title center">NIK :</h4>
+
          	</div><!-- /.box-body -->
         </div>
 <?php

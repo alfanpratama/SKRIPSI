@@ -55,8 +55,8 @@ switch($_GET[aksi]){
            <td align="center">
 
               <form class="form-horizontal" action="module/mengelola_pengajuan/pengajuan.php" method="get">
-              <input type="text" name="no_surat_pengajuan" value="<?php echo $tampilkan['no_surat_pengajuan']; ?>">             
-              <button type="submit"name="submit" onclick="this.form.target='_blank';return true;" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-search"></i>&nbsp;</button> 
+              <input type="hidden" name="no_surat_pengajuan" value="<?php echo $tampilkan['no_surat_pengajuan']; ?>">             
+              <button type="submit"name="submit" onclick="this.form.target='_blank';return true;" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-search"></i></button> 
               </form>
               <!-- <a class="btn btn-xs btn-info" href="module/mengelola_pengajuan/pengajuan.php&no_surat_pengajuan=<?php echo $tampilkan['no_surat_pengajuan'];?>" target="_blank" alt="Tinjau Data"><i class="glyphicon glyphicon-pencil"></i></a> -->
                <a class="btn btn-xs btn-success"  data-toggle="tooltip" title="Menyetujui Pengajuan??" href="<?php echo $aksi ?>?module=mengelola_pengajuan&aksi=Disetujui&no_surat_pengajuan=<?php echo $tampilkan['no_surat_pengajuan']; ?>" onclick="return confirm('Apakah anda yakin menyetujui pengajuan <?php echo $tampilkan['no_surat_pengajuan']; ?> ?')"><i class="glyphicon glyphicon-ok"></i></a>

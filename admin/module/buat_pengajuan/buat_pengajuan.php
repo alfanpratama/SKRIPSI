@@ -7,7 +7,7 @@
 				changeMonth: true,
 				changeYear: true,
 				yearRange: "2019:2021",
-				dateFormat: "yy-mm-dd"
+				dateFormat: "dd-mm-yy"
 			});
 		});
 		</script>
@@ -126,13 +126,15 @@ if(isset($_GET['pesan3'])){
           <div class="form-group">
     		<label class="col-sm-2 control-label">Pemohon</label>
     		<div class="col-sm-5">  
-    			<input type=text class="form-control" id="id_user" name="id_user" value="<?php echo $_SESSION['username']; ?>" readonly="yes">
+    			<input type=text class="form-control" id="nama" name="nama" value="<?php echo $_SESSION['username']; ?>" readonly="yes">
+    			<input type=hidden class="form-control" id="id_user" name="id_user" value="<?php echo $data5['id_user']; ?>" readonly="yes">
     		</div>
   		  </div>
   		  <div class="form-group">
     		<label class="col-sm-2 control-label">Divisi</label>
     		<div class="col-sm-5">
-          		<input type=text class="form-control" id="id_divisi" name="id_divisi" value="<?php echo $data5['nama_divisi']; ?>" readonly="yes">
+          		<input type=text class="form-control" id="nama_divisi" name="nama_divisi" value="<?php echo $data5['nama_divisi']; ?>" readonly="yes">
+          		<input type=hidden class="form-control" id="id_divisi" name="id_divisi" value="<?php echo $data5['id_divisi']; ?>" readonly="yes">
           	</div>
   		  </div>
   		  <div class="form-group">

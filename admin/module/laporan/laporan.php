@@ -43,7 +43,7 @@ case "data_barang_masuk":
 Silahkan masukan tanggal dan klik tombol cetak untuk cetak laporan data barang masuk !
 </p>
 </div> 
-<form class="form-horizontal" action="module/laporan/barang_masuk.php" method="post">             
+<form class="form-horizontal" action="module/laporan/masuk.php" method="post">             
   <div class="form-group">
     <label class="col-sm-4 control-label">Tanggal</label>	
     <div class="col-sm-3">
@@ -116,7 +116,7 @@ case "data_barang_keluar":
 Silahkan masukan tanggal dan klik tombol cetak untuk cetak laporan data barang keluar !
 </p>
 </div> 
-<form class="form-horizontal" action="module/laporan/barang_keluar.php" method="post">             
+<form class="form-horizontal" action="module/laporan/keluar.php" method="post">             
   <div class="form-group">
     <label class="col-sm-4 control-label">Tanggal</label>	
     <div class="col-sm-3">
@@ -192,7 +192,7 @@ case "data_stok_barang":
 Silahkan klik tombol cetak untuk cetak laporan data stok barang !
 </p>
 </div> 
-<form class="form-horizontal" action="module/laporan/stok_barang.php" method="post">             
+<form class="form-horizontal" action="module/laporan/stok.php" method="post">             
   <div class="form-group">
     <div class="col-sm-5">
 </div>
@@ -210,7 +210,6 @@ Silahkan klik tombol cetak untuk cetak laporan data stok barang !
        <table id="example1" class="table table-bordered table-striped">
 <thead>
 	<tr class="text-blue">
-		<th class="col-xs-1">No</th>
 		<th class="col-sm-1">Id Stok</th>
 		<th class="col-sm-3">Id Barang</th>
 		<th class="col-sm-5">Nama Barang </th>
@@ -222,14 +221,12 @@ Silahkan klik tombol cetak untuk cetak laporan data stok barang !
 // Tampilkan data dari Database 
         $sql=("SELECT stok.id_stok,stok.id_barang,barang.nama_brg,stok.stok FROM stok INNER JOIN barang ON stok.id_barang=barang.id_barang");
 $tampil = mysql_query($sql);
-$no=1;
 while ($tampilkan = mysql_fetch_array($tampil)) { 
 
 $Kode = $tampilkan['id_stok'];
           ?>
 
           <tr>
-           <td><?php echo $no++;?></td>
            <td><?php echo $tampilkan['id_stok']; ?></td>
            <td><?php echo $tampilkan['id_barang']; ?></td>
            <td><?php echo $tampilkan['nama_brg']; ?></td>
